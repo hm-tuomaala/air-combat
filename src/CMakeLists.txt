@@ -23,8 +23,8 @@ set(LIB_INSTALL_DIR lib${LIB_SUFFIX})
 add_subdirectory(Box2D)
 
 # Define sources and executable
-set(EXECUTABLE_NAME "justatest")
-add_executable(${EXECUTABLE_NAME} justatest.cpp)
+set(EXECUTABLE_NAME "fighter")
+add_executable(${EXECUTABLE_NAME} main.cpp world.hpp world.cpp)
 target_link_libraries (${EXECUTABLE_NAME} Box2D)
 
 # Detect and add SFML
