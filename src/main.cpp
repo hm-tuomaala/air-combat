@@ -9,11 +9,12 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat");
     window.setFramerateLimit(60);
     sf::Event event;
-    /*sf::Texture texture;
-    texture.loadFromFile("Images/fighter_for_cpp.png");
+    sf::Texture texture;
+    texture.loadFromFile("Images/fighter.png");
     
-    sf::Sprite(texture);
-    */
+    sf::Sprite player(texture);
+    player.setTextureRect(sf::IntRect(40,0,40,40));
+    player.setOrigin(20,20);
 
     World *fighterWorld = new World();
 
@@ -25,8 +26,14 @@ int main(){
             }
         }
         fighterWorld->worldStep();
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){}
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){}
+
+        //Draw
         window.clear(sf::Color::White);
         window.draw(fighterWorld->getGround());
+        window.draw(player);
         window.display();
     }
 

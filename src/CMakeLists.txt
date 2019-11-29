@@ -21,6 +21,7 @@ set(LIB_INSTALL_DIR lib${LIB_SUFFIX})
 
 # The Box2D library.
 add_subdirectory(Box2D)
+add_subdirectory(Images)
 
 # Define sources and executable
 set(EXECUTABLE_NAME "fighter")
