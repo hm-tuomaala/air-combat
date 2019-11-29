@@ -11,6 +11,7 @@ Plane::Plane(b2World *world){
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 0.1f;
     body->CreateFixture(&fixtureDef);
+    body->SetAngularDamping(2.0f);
 
     sf::Texture plane_texture;
     //plane_texture.loadFromFile("Images/fighter.png");
@@ -42,14 +43,14 @@ sf::Sprite &Plane::getSprite(){
 }
 
 void Plane::accelerate(){
-    body->ApplyForceToCenter(b2Vec2(20000.0f, 10000.0f), true);
+    body->ApplyLinearImpulseToCenter(b2Rot(body->GetAngle()).GetXAxis(), true);
 }
 
 void Plane::pitch(const int x){
     if (x==0){
-        body->ApplyTorque(10, true);
+        body->ApplyAngularImpulse(0.50, true);
     }
     else if (x==1){
-        body->ApplyTorque(-10, true);
+        body->ApplyAngularImpulse(-0.50, true);
     }
 }
