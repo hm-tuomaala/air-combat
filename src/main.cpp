@@ -1,22 +1,21 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Box2D/Box2D.h"
 #include <stdio.h>
+
+#include "Box2D/Box2D.h"
 #include "world.hpp"
+#include "plane.hpp"
 
 int main(){
     //windowsetup
     sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat");
     window.setFramerateLimit(60);
     sf::Event event;
-    sf::Texture texture;
-    texture.loadFromFile("Images/fighter.png");
-    
-    sf::Sprite player(texture);
-    player.setTextureRect(sf::IntRect(40,0,40,40));
-    player.setOrigin(20,20);
+    sf::View view;
 
     World *fighterWorld = new World();
+    Plane *plane = new Plane(&fighterWorld->get2bWorld());
+
 
     while(window.isOpen()){
 
@@ -27,13 +26,25 @@ int main(){
         }
         fighterWorld->worldStep();
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){}
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){}
+        plane->planeStep();
+        view.setCenter(plane->getSprite().getPosition().x, plane->getSprite().getPosition().y);
+        view.setSize(800, -600);
+		window.setView(view);
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+            plane->accelerate();
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+            plane->pitch(0);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+            plane->pitch(1);
+        }
 
         //Draw
-        window.clear(sf::Color::White);
+        window.clear(sf::Color::Blue);
         window.draw(fighterWorld->getGround());
-        window.draw(player);
+        window.draw(plane->getSprite());
         window.display();
     }
 
