@@ -4,4 +4,7 @@ mkdir build
 cd build  
 cmake ..  
 make  
-./justatest  
+./fighter
+
+
+Box is controlled with W, A, D
