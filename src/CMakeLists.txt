@@ -25,7 +25,11 @@ add_subdirectory(Images)
 
 # Define sources and executable
 set(EXECUTABLE_NAME "fighter")
+<<<<<<< HEAD
 add_executable(${EXECUTABLE_NAME} main.cpp world.hpp world.cpp plane.hpp plane.cpp enemyair.hpp enemyair.cpp bullet.hpp bullet.cpp projectiles.hpp projectiles.cpp)
+=======
+add_executable(${EXECUTABLE_NAME} main.cpp world.hpp world.cpp plane.hpp plane.cpp enemyair.hpp enemyair.cpp menu.cpp menu.hpp)
+>>>>>>> 85a692563a5de002ad0175dd1756ecfd43b174aa
 target_link_libraries (${EXECUTABLE_NAME} Box2D)
 
 # Detect and add SFML

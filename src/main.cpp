@@ -5,8 +5,12 @@
 #include "Box2D/Box2D.h"
 #include "world.hpp"
 #include "enemyair.hpp"
+<<<<<<< HEAD
 #include "menu.cpp"
 #include "projectiles.hpp"
+=======
+#include "menu.hpp"
+>>>>>>> 85a692563a5de002ad0175dd1756ecfd43b174aa
 
 int main(){
     //windowsetup
