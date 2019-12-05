@@ -15,6 +15,7 @@ int main(){
 
     World *fighterWorld = new World();
     Plane *plane = new Plane(&fighterWorld->get2bWorld());
+    Plane *aiPlane = new Plane(&fighterWorld->get2bWorld());
 
 
     while(window.isOpen()){
@@ -27,6 +28,7 @@ int main(){
         fighterWorld->worldStep();
 
         plane->planeStep();
+        aiPlane->planeStep();
         view.setCenter(plane->getSprite().getPosition().x, plane->getSprite().getPosition().y);
         view.setSize(800, -600);
 		window.setView(view);
@@ -41,10 +43,12 @@ int main(){
             plane->pitch(1);
         }
 
+
         //Draw
         window.clear(sf::Color::Blue);
         window.draw(fighterWorld->getGround());
         window.draw(plane->getSprite());
+        window.draw(aiPlane->getSprite());
         window.display();
     }
 

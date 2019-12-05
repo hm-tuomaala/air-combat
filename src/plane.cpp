@@ -14,7 +14,7 @@ Plane::Plane(b2World *world){
     body->SetAngularDamping(2.0f);
 
     sf::Texture plane_texture;
-    //plane_texture.loadFromFile("Images/fighter.png");
+    //plane_texture.loadFromFile("../Images/fighter.png");
     plane_texture.create(200, 200);
     sprite = new sf::Sprite(plane_texture);
     sprite->setOrigin(50.f, 50.f);
