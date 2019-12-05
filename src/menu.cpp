@@ -1,7 +1,25 @@
 #include "menu.hpp"
+#include <iostream>
+#include <stdio.h>  /* defines FILENAME_MAX */
+#ifdef WINDOWS
+    #include <direct.h>
+    #define GetCurrentDir _getcwd
+#else
+    #include <unistd.h>
+    #define GetCurrentDir getcwd
+ #endif
 
 Menu::Menu(float width, float height){
-    if (!font.loadFromFile("arial.ttf")) {
+
+    char cCurrentPath[FILENAME_MAX];
+
+    if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))){
+        //err
+    }
+
+    std::cout << cCurrentPath << std::endl;
+
+    if (!font.loadFromFile(cCurrentPath + std::string("/Image/arial.ttf"))) {
         //error
     }
 
