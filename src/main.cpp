@@ -6,6 +6,7 @@
 #include "world.hpp"
 #include "enemyair.hpp"
 #include "menu.cpp"
+#include "projectiles.hpp"
 
 int main(){
     //windowsetup
@@ -19,6 +20,7 @@ int main(){
     World *fighterWorld = new World();
     Plane *plane = new Plane(&fighterWorld->get2bWorld());
     EnemyAir *enPlanes = new EnemyAir(&fighterWorld->get2bWorld());
+    Projectiles *bullets = new Projectiles(&fighterWorld->get2bWorld());
     enPlanes->liftoff();
     enPlanes->liftoff();
     enPlanes->liftoff();
@@ -50,9 +52,13 @@ int main(){
 
             plane->planeStep();
             enPlanes->step();
+            bullets->projectileStep();
             view.setCenter(plane->getSprite().getPosition().x, plane->getSprite().getPosition().y);
             view.setSize(800, -600);
     		window.setView(view);
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+                bullets->create(plane->getPosition(), plane->getDirection());
+            }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
                 plane->accelerate();
@@ -71,6 +77,9 @@ int main(){
             window.draw(fighterWorld->getGround());
             window.draw(plane->getSprite());
             for (auto i : enPlanes->getSprites()){
+                window.draw(i);
+            }
+            for(auto i : bullets->getSprites()){
                 window.draw(i);
             }
         } else {
