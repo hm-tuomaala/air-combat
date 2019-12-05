@@ -5,7 +5,7 @@
 #include "Box2D/Box2D.h"
 #include "world.hpp"
 #include "enemyair.hpp"
-#include "menu.cpp"
+//#include "menu.cpp"
 
 int main(){
     //windowsetup
