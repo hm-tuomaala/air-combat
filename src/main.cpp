@@ -4,7 +4,7 @@
 
 #include "Box2D/Box2D.h"
 #include "world.hpp"
-#include "plane.hpp"
+#include "enemyair.hpp"
 
 int main(){
     //windowsetup
@@ -15,7 +15,10 @@ int main(){
 
     World *fighterWorld = new World();
     Plane *plane = new Plane(&fighterWorld->get2bWorld());
-    Plane *aiPlane = new Plane(&fighterWorld->get2bWorld());
+    EnemyAir *enPlanes = new EnemyAir(&fighterWorld->get2bWorld());
+    enPlanes->liftoff();
+    enPlanes->liftoff();
+    enPlanes->liftoff();
 
 
     while(window.isOpen()){
@@ -28,7 +31,7 @@ int main(){
         fighterWorld->worldStep();
 
         plane->planeStep();
-        aiPlane->planeStep();
+        enPlanes->step();
         view.setCenter(plane->getSprite().getPosition().x, plane->getSprite().getPosition().y);
         view.setSize(800, -600);
 		window.setView(view);
@@ -48,7 +51,9 @@ int main(){
         window.clear(sf::Color::Blue);
         window.draw(fighterWorld->getGround());
         window.draw(plane->getSprite());
-        window.draw(aiPlane->getSprite());
+        for (auto i : enPlanes->getSprites()){
+            window.draw(i);
+        }
         window.display();
     }
 
