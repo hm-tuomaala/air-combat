@@ -25,7 +25,7 @@ Menu::Menu(float width, float height){
 
     std::cout << path << std::endl;
 
-    if (!font.loadFromFile(cCurrentPath + std::string("/Image/arial.ttf"))) {
+    if (!font.loadFromFile(path + std::string("/Image/arial.ttf"))) {
         //error
     }
 
