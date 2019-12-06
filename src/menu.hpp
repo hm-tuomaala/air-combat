@@ -11,6 +11,7 @@ public:
     void MoveDown();
     void HighlightIndex(int index);
     int GetIndex();
+    sf::Text GetText(int index);
 
 private:
     int selectIndex;

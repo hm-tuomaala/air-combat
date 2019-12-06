@@ -87,6 +87,10 @@ void Menu::HighlightIndex(int index){
     selectIndex = index;
 }
 
+sf::Text Menu::GetText(int index) {
+    return this->menu[index];
+}
+
 int Menu::GetIndex(){
     return selectIndex;
 }
