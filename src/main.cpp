@@ -85,6 +85,7 @@ int main(){
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
                 plane->pitch(1);
             }
+            enPlanes->planeControl(plane->getPosition(), plane->getDirection());
         }
 
         //Draw
