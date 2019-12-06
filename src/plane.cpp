@@ -9,7 +9,7 @@ Plane::Plane(b2World *world){
     dynamicBox.SetAsBox(10.0f, 5.0f);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 0.01f;
+    fixtureDef.density = 0.02f;
     body->CreateFixture(&fixtureDef);
     body->SetAngularDamping(2.0f);
 
@@ -26,6 +26,16 @@ Plane::Plane(b2World *world){
 void Plane::planeStep() {
     b2Vec2 position = body->GetPosition();
     float32 angle = body->GetAngle();
+
+    //adding some force to make plane resist traveling in directions other than forward
+    b2Vec2 linVel = body->GetLinearVelocity();
+    float32 speed = linVel.Normalize();
+    linVel *= 2;
+    b2Vec2 lift = (b2Rot(body->GetAngle()).GetXAxis() - linVel);
+    lift *= speed;
+    body->ApplyForceToCenter(lift, true);
+
+    //update sprite position
     sprite->setPosition(position.x, position.y);
     sprite->setRotation(angle * 180.f / 3.14f);
 }
@@ -43,14 +53,17 @@ sf::Sprite &Plane::getSprite(){
 }
 
 void Plane::accelerate(){
-    body->ApplyLinearImpulseToCenter(b2Rot(body->GetAngle()).GetXAxis(), true);
+    b2Vec2 dir = b2Rot(body->GetAngle()).GetXAxis();
+    dir *= 1000;
+    body->ApplyForceToCenter(dir, true);
+    //body->ApplyLinearImpulseToCenter(dir, true);
 }
 
 void Plane::pitch(const int x){
     if (x==0){
-        body->ApplyAngularImpulse(10, true);
+        body->ApplyAngularImpulse(15, true);
     }
     else if (x==1){
-        body->ApplyAngularImpulse(-10, true);
+        body->ApplyAngularImpulse(-15, true);
     }
 }
