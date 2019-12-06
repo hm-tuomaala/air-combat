@@ -25,24 +25,27 @@ Menu::Menu(float width, float height){
 
     std::cout << path << std::endl;
 
-    if (!font.loadFromFile(path + std::string("/Images/arial.ttf"))) {
+    if (!font.loadFromFile(path + std::string("/Images/Xhume.ttf"))) {
         //error
     }
 
     menu[0].setFont(font);
     menu[0].setFillColor(sf::Color::Red);
     menu[0].setString("Play");
-    menu[0].setPosition(sf::Vector2f(width/2, height / 4 * 1));
+    menu[0].setPosition(sf::Vector2f(width/2.4f, height / 4 * 1));
+    menu[0].setCharacterSize(45);
 
     menu[1].setFont(font);
     menu[1].setFillColor(sf::Color::White);
     menu[1].setString("Options");
-    menu[1].setPosition(sf::Vector2f(width/2, height / 4 * 2));
+    menu[1].setPosition(sf::Vector2f(width/2.4f, height / 4 * 2));
+    menu[1].setCharacterSize(45);
 
     menu[2].setFont(font);
     menu[2].setFillColor(sf::Color::White);
     menu[2].setString("Quit");
-    menu[2].setPosition(sf::Vector2f(width/2, height / 4 * 3));
+    menu[2].setPosition(sf::Vector2f(width/2.4f, height / 4 * 3));
+    menu[2].setCharacterSize(45);
 
     selectIndex = 0;
 }
