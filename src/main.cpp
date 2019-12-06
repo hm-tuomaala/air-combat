@@ -44,6 +44,22 @@ int main(){
                 } else if (event.key.code == sf::Keyboard::Return && menu.GetIndex() == 2) {
                     window.close();
                 }
+            } else if (event.type == sf::Event::MouseMoved && renderMenu) {
+                if (event.mouseMove.x > 333 && event.mouseMove.x < 430 && event.mouseMove.y > 166 && event.mouseMove.y < 203) {
+                    menu.HighlightIndex(0);
+                } else if (event.mouseMove.x > 333 && event.mouseMove.x < 516 && event.mouseMove.y > 315 && event.mouseMove.y < 356) {
+                    menu.HighlightIndex(1);
+                } else if (event.mouseMove.x > 333 && event.mouseMove.x < 431 && event.mouseMove.y > 465 && event.mouseMove.y < 497) {
+                    menu.HighlightIndex(2);
+                }
+            } else if (event.type == sf::Event::MouseButtonPressed && renderMenu) {
+                if (event.mouseButton.x > 333 && event.mouseButton.x < 430 && event.mouseButton.y > 166 && event.mouseButton.y < 203) {
+                    renderMenu = false;
+                } else if (event.mouseButton.x > 333 && event.mouseButton.x < 516 && event.mouseButton.y > 315 && event.mouseButton.y < 356) {
+                    //Option lohko
+                } else if (event.mouseButton.x > 333 && event.mouseButton.x < 431 && event.mouseButton.y > 465 && event.mouseButton.y < 497) {
+                    window.close();
+                }
             }
         }
 

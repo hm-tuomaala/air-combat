@@ -9,6 +9,7 @@ public:
     void Draw(sf::RenderWindow &window);
     void MoveUp();
     void MoveDown();
+    void HighlightIndex(int index);
     int GetIndex();
 
 private:

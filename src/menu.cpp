@@ -79,6 +79,14 @@ void Menu::MoveDown(){
     }
 }
 
+void Menu::HighlightIndex(int index){
+    menu[0].setFillColor(sf::Color::White);
+    menu[1].setFillColor(sf::Color::White);
+    menu[2].setFillColor(sf::Color::White);
+    menu[index].setFillColor(sf::Color::Red);
+    selectIndex = index;
+}
+
 int Menu::GetIndex(){
     return selectIndex;
 }
