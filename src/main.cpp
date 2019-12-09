@@ -7,6 +7,7 @@
 #include "enemyair.hpp"
 #include "menu.hpp"
 #include "projectiles.hpp"
+#include "player.hpp"
 
 int main(){
     //windowsetup
@@ -18,7 +19,7 @@ int main(){
     Menu menu(window.getSize().x, window.getSize().y);
 
     World *fighterWorld = new World();
-    Plane *plane = new Plane(&fighterWorld->get2bWorld());
+    Player *player = new Player(&fighterWorld->get2bWorld());
     EnemyAir *enPlanes = new EnemyAir(&fighterWorld->get2bWorld());
     Projectiles *bullets = new Projectiles(&fighterWorld->get2bWorld());
     enPlanes->liftoff();
@@ -66,33 +67,33 @@ int main(){
         if (!renderMenu) {
             fighterWorld->worldStep();
 
-            plane->planeStep();
+            player->step();
             enPlanes->step();
             bullets->projectileStep();
-            view.setCenter(plane->getSprite().getPosition().x, plane->getSprite().getPosition().y);
+            view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
             view.setSize(800, -600);
     		window.setView(view);
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-                bullets->create(plane->getPosition(), plane->getDirection());
+                bullets->create(player->getPosition(), player->getDirection());
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-                plane->accelerate();
+                player->planeAccelerate();
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-                plane->pitch(0);
+                player->planePitch(0);
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-                plane->pitch(1);
+                player->planePitch(1);
             }
-            enPlanes->planeControl(plane->getPosition(), plane->getDirection());
+            enPlanes->planeControl(player->getPosition(), player->getDirection());
         }
 
         //Draw
         window.clear(sf::Color::Blue);
         if (!renderMenu) {
             window.draw(fighterWorld->getGround());
-            window.draw(plane->getSprite());
+            window.draw(player->getSprite());
             for (auto i : enPlanes->getSprites()){
                 window.draw(i);
             }

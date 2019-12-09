@@ -9,8 +9,11 @@ World::World(){
     b2PolygonShape groundAsBox;
     groundAsBox.SetAsBox(500.0f, 10.0f);
     groundBody->CreateFixture(&groundAsBox, 0.0f);
+    newWorld->SetContactListener( new ContactListener);
 
-    ground  = new sf::RectangleShape(sf::Vector2f(1000,20));
+    
+
+    ground = new sf::RectangleShape(sf::Vector2f(1000,20));
     ground->setFillColor(sf::Color::Black);
     ground->setPosition(-500.0f, -10.0f);
 
@@ -18,7 +21,7 @@ World::World(){
 }
 
 World::~World(){
-    
+
 }
 
 b2World &World::get2bWorld(){

@@ -26,7 +26,7 @@ add_subdirectory(Images)
 # Define sources and executable
 set(EXECUTABLE_NAME "fighter")
 
-add_executable(${EXECUTABLE_NAME} main.cpp world.hpp world.cpp plane.hpp plane.cpp enemyair.hpp enemyair.cpp bullet.hpp bullet.cpp projectiles.hpp projectiles.cpp menu.cpp)
+add_executable(${EXECUTABLE_NAME} main.cpp world.hpp world.cpp plane.hpp plane.cpp enemyair.hpp enemyair.cpp bullet.hpp bullet.cpp projectiles.hpp projectiles.cpp menu.cpp player.hpp player.cpp contactListener.hpp)
 
 target_link_libraries (${EXECUTABLE_NAME} Box2D)
 

@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
-#include "Box2D/Box2D.h"
 #include <list>
+#include "contactListener.hpp"
+#include "Box2D/Box2D.h"
 
 class World{
 public:
@@ -15,4 +16,3 @@ protected:
     b2World* newWorld;
     sf::RectangleShape *ground;
 };
-

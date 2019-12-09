@@ -1,3 +1,5 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Box2D/Box2D.h"
@@ -12,6 +14,7 @@ public:
     void planeStep();
     void accelerate();
     void pitch(const int x);
+    void startContact();
 private:
     b2Body *body;
     sf::Sprite *sprite;

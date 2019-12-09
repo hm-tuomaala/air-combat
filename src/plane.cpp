@@ -13,6 +13,7 @@ Plane::Plane(b2World *world){
     fixtureDef.density = 0.02f;
     body->CreateFixture(&fixtureDef);
     body->SetAngularDamping(2.0f);
+    body->SetUserData(this);
 
     //create plane sprite
     sf::Texture plane_texture;
@@ -72,4 +73,8 @@ void Plane::pitch(const int x){
     else if (x==1){
         body->ApplyAngularImpulse(-15, true);
     }
+}
+
+void Plane::startContact(){
+    sprite->setColor(sf::Color::Green);
 }
