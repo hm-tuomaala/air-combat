@@ -14,7 +14,7 @@ void EnemyAir::step(){
     }
 }
 
-std::list<sf::Sprite> EnemyAir::getSprites(){
+const std::list<sf::Sprite> EnemyAir::getSprites() const{
     std::list<sf::Sprite> sprites;
     for (auto plane : planes_){
         sprites.push_back(plane->getSprite());
@@ -36,6 +36,9 @@ void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
                     plane->pitch(1);
                 }
             }
+            else{
+                plane->pitch(0);
+            }
         }
         else if (dir.x <= 0){
             if (sep.x < 0){
@@ -46,9 +49,9 @@ void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
                     plane->pitch(0);
                 }
             }
-        }
-        else{
-            plane->pitch(1);
+            else{
+                plane->pitch(1);
+            }
         }
         if ((dir - sep).Length() < 0.2){
             plane->accelerate();

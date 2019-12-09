@@ -5,10 +5,11 @@
 class World{
 public:
     World();
-    b2World &get2bWorld();
+    ~World();
     void setUpMap();
     void worldStep();
-    sf::RectangleShape getGround();
+    b2World &get2bWorld();
+    const sf::RectangleShape getGround() const;
 
 protected:
     b2World* newWorld;

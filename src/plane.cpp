@@ -1,6 +1,7 @@
 #include "plane.hpp"
 
 Plane::Plane(b2World *world){
+    //creation and setup of the physics body of the plane
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(0.0f, 100.0f);
@@ -13,6 +14,7 @@ Plane::Plane(b2World *world){
     body->CreateFixture(&fixtureDef);
     body->SetAngularDamping(2.0f);
 
+    //create plane sprite
     sf::Texture plane_texture;
     //plane_texture.loadFromFile("../Images/fighter.png");
     plane_texture.create(20, 10);
@@ -21,6 +23,10 @@ Plane::Plane(b2World *world){
     sprite->setTexture(plane_texture);
     //sprite->setScale(0.01f, 0.01f);
     sprite->setColor(sf::Color::Magenta);
+}
+
+Plane::~Plane(){
+
 }
 
 void Plane::planeStep() {
@@ -40,15 +46,15 @@ void Plane::planeStep() {
     sprite->setRotation(angle * 180.f / 3.14f);
 }
 
-b2Vec2 Plane::getPosition() {
+const b2Vec2 Plane::getPosition() const{
     return body->GetPosition();
 }
 
-float32 Plane::getDirection(){
+const float32 Plane::getDirection() const{
     return body->GetAngle();
 }
 
-sf::Sprite &Plane::getSprite(){
+const sf::Sprite &Plane::getSprite() const{
     return *sprite;
 }
 

@@ -17,11 +17,15 @@ World::World(){
 
 }
 
+World::~World(){
+    
+}
+
 b2World &World::get2bWorld(){
     return *newWorld;
 }
 
-sf::RectangleShape World::getGround(){
+const sf::RectangleShape World::getGround() const{
     return *ground;
 }
 

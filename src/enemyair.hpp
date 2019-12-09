@@ -6,12 +6,13 @@
 #include "plane.hpp"
 
 class EnemyAir{
+/*Stores and controls enemy air units*/
 public:
     EnemyAir(b2World *world);
     void liftoff();
     void planeControl(b2Vec2 pPos, float32 pDir);
     void step();
-    std::list<sf::Sprite> getSprites();
+    const std::list<sf::Sprite> getSprites() const;
 
 private:
     std::list<Plane*> planes_;

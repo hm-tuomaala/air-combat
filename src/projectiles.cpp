@@ -8,7 +8,7 @@ void Projectiles::create(b2Vec2 position, float32 direction ){
     bullets.push_back(new Bullet(world_, position, direction));
 }
 
-std::list<sf::Sprite> Projectiles::getSprites(){
+const std::list<sf::Sprite> Projectiles::getSprites() const{
     std::list<sf::Sprite> bullet_sprites;
     for (auto Bullet : bullets){
         bullet_sprites.push_back(Bullet->getSprite());

@@ -5,9 +5,10 @@
 class Plane{
 public:
     Plane(b2World *world);
-    b2Vec2 getPosition();
-    float32 getDirection();
-    sf::Sprite &getSprite();
+    ~Plane();
+    const b2Vec2 getPosition() const;
+    const float32 getDirection() const;
+    const sf::Sprite &getSprite() const;
     void planeStep();
     void accelerate();
     void pitch(const int x);
