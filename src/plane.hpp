@@ -11,11 +11,13 @@ public:
     const b2Vec2 getPosition() const;
     const float32 getDirection() const;
     const sf::Sprite &getSprite() const;
-    void planeStep();
+    const int getHealth() const;
+    const int planeStep() const;
     void accelerate();
     void pitch(const int x);
     void startContact();
 private:
     b2Body *body;
     sf::Sprite *sprite;
+    int health;
 };

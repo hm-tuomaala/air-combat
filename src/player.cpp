@@ -10,7 +10,8 @@ Player::~Player(){
 }
 
 void Player::step(){
-    plane_->planeStep();
+    if (plane_->planeStep() <= 0) 
+        respawn();
 }
 
 void Player::planePitch(const int x){
@@ -22,7 +23,8 @@ void Player::planeAccelerate(){
 }
 
 void Player::respawn(){
-
+    delete plane_;
+    plane_ = new Plane(world_);
 }
 
 const sf::Sprite Player::getSprite() const{

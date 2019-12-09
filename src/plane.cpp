@@ -1,6 +1,8 @@
 #include "plane.hpp"
 
 Plane::Plane(b2World *world){
+    health = 100;
+
     //creation and setup of the physics body of the plane
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
@@ -27,10 +29,10 @@ Plane::Plane(b2World *world){
 }
 
 Plane::~Plane(){
-
+    body->GetWorld()->DestroyBody(body);
 }
 
-void Plane::planeStep() {
+const int Plane::planeStep() const{
     b2Vec2 position = body->GetPosition();
     float32 angle = body->GetAngle();
 
@@ -45,6 +47,9 @@ void Plane::planeStep() {
     //update sprite position
     sprite->setPosition(position.x, position.y);
     sprite->setRotation(angle * 180.f / 3.14f);
+
+    //returns the health of the plane
+    return health;
 }
 
 const b2Vec2 Plane::getPosition() const{
@@ -57,6 +62,10 @@ const float32 Plane::getDirection() const{
 
 const sf::Sprite &Plane::getSprite() const{
     return *sprite;
+}
+
+const int Plane::getHealth() const{
+    return health;
 }
 
 void Plane::accelerate(){
@@ -76,5 +85,6 @@ void Plane::pitch(const int x){
 }
 
 void Plane::startContact(){
+    health -= 20;
     sprite->setColor(sf::Color::Green);
 }

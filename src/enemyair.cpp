@@ -9,8 +9,9 @@ void EnemyAir::liftoff(){
 }
 
 void EnemyAir::step(){
-    for (auto plane : planes_){
-        plane->planeStep();
+    for (auto i = planes_.begin() ; i != planes_.end(); i++){
+        if ((*i)->planeStep() <= 0){
+        }
     }
 }
 
