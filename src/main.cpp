@@ -44,6 +44,7 @@ int main(){
     text.setString("HP: " + hp);
     text.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
     text.setCharacterSize(20);
+    text.setScale(1.0, -1.0);
 
     while(window.isOpen()){
 
@@ -125,7 +126,6 @@ int main(){
             hp = std::to_string(player->getHp());
             text.setString("HP: " + hp);
             text.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
-            text.setScale(1.0, -1.0);
             window.draw(text);
         } else {
             menu.Draw(window);
