@@ -39,12 +39,22 @@ int main(){
     int xpos = 370;
     int ypos = -280;
     sf::Text hpText;
+    sf::Text livesText;
     hpText.setFont(f);
+    livesText.setFont(f);
+
     std::string hp = std::to_string(player->getHp());
+    std::string lives = std::to_string(player->getLives());
+
     hpText.setString("HP: " + hp);
     hpText.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
     hpText.setCharacterSize(20);
     hpText.setScale(1.0, -1.0);
+
+    livesText.setString("Lives: " + lives);
+    livesText.setPosition(view.getCenter().x - xpos + 100, view.getCenter().y - ypos);
+    livesText.setCharacterSize(20);
+    livesText.setScale(1.0, -1.0);
 
     while(window.isOpen()){
 
@@ -124,9 +134,13 @@ int main(){
                 window.draw(i);
             }
             hp = std::to_string(player->getHp());
+            lives = std::to_string(player->getLives());
             hpText.setString("HP: " + hp);
             hpText.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
+            livesText.setString("Lives: " + lives);
+            livesText.setPosition(view.getCenter().x - xpos + 100, view.getCenter().y - ypos);
             window.draw(hpText);
+            window.draw(livesText);
         } else {
             menu.Draw(window);
         }

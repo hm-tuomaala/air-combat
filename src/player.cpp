@@ -3,6 +3,7 @@
 Player::Player(b2World *world)
     : world_(world) {
     plane_ = new Plane(world_);
+    lives_ = 12;
 }
 
 Player::~Player(){
@@ -10,7 +11,7 @@ Player::~Player(){
 }
 
 void Player::step(){
-    if (plane_->planeStep() <= 0) 
+    if (plane_->planeStep() <= 0)
         respawn();
 }
 
@@ -25,6 +26,7 @@ void Player::planeAccelerate(){
 void Player::respawn(){
     delete plane_;
     plane_ = new Plane(world_);
+    lives_--;
 }
 
 const sf::Sprite Player::getSprite() const{
