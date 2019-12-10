@@ -12,7 +12,7 @@
 
 int main(){
     //windowsetup
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
     sf::View view;
@@ -38,13 +38,23 @@ int main(){
 
     int xpos = 370;
     int ypos = -280;
-    sf::Text text;
-    text.setFont(f);
+    sf::Text hpText;
+    sf::Text livesText;
+    hpText.setFont(f);
+    livesText.setFont(f);
+
     std::string hp = std::to_string(player->getHp());
-    text.setString("HP: " + hp);
-    text.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
-    text.setCharacterSize(20);
-    text.setScale(1.0, -1.0);
+    std::string lives = std::to_string(player->getLives());
+
+    hpText.setString("HP: " + hp);
+    hpText.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
+    hpText.setCharacterSize(20);
+    hpText.setScale(1.0, -1.0);
+
+    livesText.setString("Lives: " + lives);
+    livesText.setPosition(view.getCenter().x - xpos + 100, view.getCenter().y - ypos);
+    livesText.setCharacterSize(20);
+    livesText.setScale(1.0, -1.0);
 
     while(window.isOpen()){
 
@@ -124,9 +134,13 @@ int main(){
                 window.draw(i);
             }
             hp = std::to_string(player->getHp());
-            text.setString("HP: " + hp);
-            text.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
-            window.draw(text);
+            lives = std::to_string(player->getLives());
+            hpText.setString("HP: " + hp);
+            hpText.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
+            livesText.setString("Lives: " + lives);
+            livesText.setPosition(view.getCenter().x - xpos + 100, view.getCenter().y - ypos);
+            window.draw(hpText);
+            window.draw(livesText);
         } else {
             menu.Draw(window);
         }
