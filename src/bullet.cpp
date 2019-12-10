@@ -4,7 +4,8 @@ Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
     b2BodyDef blt;
     blt.type = b2_dynamicBody;
     blt.bullet = true;
-    blt.position.Set(position.x + 20, position.y + 20);
+    b2Vec2 dir = b2Rot(direction).GetXAxis();
+    blt.position.Set(position.x + 15*dir.x, position.y + 15*dir.y);
     b2CircleShape circleShape;
     circleShape.m_p.Set(1.0f, 3.0f);
     circleShape.m_radius = 0.5f;
@@ -47,8 +48,8 @@ int Bullet::bulletStep(){
 }
 
 void Bullet::speed(float32 direction){
-    b2Vec2 new_dir = b2Rot(direction-5).GetXAxis();
-    new_dir*=500;
+    b2Vec2 new_dir = b2Rot(direction).GetXAxis();
+    new_dir*=10000;
     body->ApplyLinearImpulseToCenter(new_dir, true);
 
 }

@@ -83,10 +83,10 @@ int main(){
                 player->planeAccelerate();
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-                player->planePitch(0);
+                player->planePitch(1);
             }
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-                player->planePitch(1);
+                player->planePitch(0);
             }
             enPlanes->planeControl(player->getPosition(), player->getDirection());
             
