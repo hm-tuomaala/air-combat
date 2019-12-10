@@ -17,7 +17,7 @@ Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
     body->CreateFixture(&fixtureDef);
 
     sf::Texture bullet_texture;
-    bullet_texture.create(10,10);
+    bullet_texture.create(20,20);
     
     bullet_sprite = new sf::Sprite(bullet_texture);
     bullet_sprite->setTexture(bullet_texture);

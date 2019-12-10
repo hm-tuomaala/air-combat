@@ -15,6 +15,7 @@ int main(){
     window.setFramerateLimit(60);
     sf::Event event;
     sf::View view;
+    int delayCounter;
 
     Menu menu(window.getSize().x, window.getSize().y);
 
@@ -75,9 +76,11 @@ int main(){
             view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
             view.setSize(800, -600);
     		window.setView(view);
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && delayCounter > 7){
                 bullets->create(player->getPosition(), player->getDirection());
+                delayCounter = 0;
             }
+            delayCounter++;
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
                 player->planeAccelerate();
