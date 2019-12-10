@@ -38,13 +38,13 @@ int main(){
 
     int xpos = 370;
     int ypos = -280;
-    sf::Text text;
-    text.setFont(f);
+    sf::Text hpText;
+    hpText.setFont(f);
     std::string hp = std::to_string(player->getHp());
-    text.setString("HP: " + hp);
-    text.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
-    text.setCharacterSize(20);
-    text.setScale(1.0, -1.0);
+    hpText.setString("HP: " + hp);
+    hpText.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
+    hpText.setCharacterSize(20);
+    hpText.setScale(1.0, -1.0);
 
     while(window.isOpen()){
 
@@ -124,9 +124,9 @@ int main(){
                 window.draw(i);
             }
             hp = std::to_string(player->getHp());
-            text.setString("HP: " + hp);
-            text.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
-            window.draw(text);
+            hpText.setString("HP: " + hp);
+            hpText.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
+            window.draw(hpText);
         } else {
             menu.Draw(window);
         }
