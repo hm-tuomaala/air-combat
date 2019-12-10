@@ -38,3 +38,11 @@ const b2Vec2 Player::getPosition() const{
 const float32 Player::getDirection() const{
     return plane_->getDirection();
 }
+
+const int Player::getHp() const{
+    return plane_->getHealth();
+}
+
+const int Player::getLives() const{
+    return lives_;
+}
