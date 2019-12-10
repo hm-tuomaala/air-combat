@@ -70,6 +70,7 @@ int main(){
             player->step();
             enPlanes->step();
             bullets->projectileStep();
+            bullets->remove();
             enPlanes->removal();
             view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
             view.setSize(800, -600);

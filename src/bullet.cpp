@@ -16,7 +16,7 @@ Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
     body->CreateFixture(&fixtureDef);
 
     sf::Texture bullet_texture;
-    bullet_texture.create(8,8);
+    bullet_texture.create(10,10);
     
     bullet_sprite = new sf::Sprite(bullet_texture);
     bullet_sprite->setTexture(bullet_texture);
@@ -26,6 +26,10 @@ Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
 
 
 }
+
+Bullet::~Bullet(){
+    body->GetWorld()->DestroyBody(body);
+}
 b2Vec2 Bullet::getPosition() {
     return body->GetPosition();
 }
@@ -33,17 +37,20 @@ b2Vec2 Bullet::getPosition() {
 float32 Bullet::getDirection(){
     return body->GetAngle();
 }
-void Bullet::bulletStep(){
+int Bullet::bulletStep(){
     b2Vec2 position = body->GetPosition();
     float32 angle = body->GetAngle();
     bullet_sprite->setPosition(position.x, position.y);
     bullet_sprite->setRotation(angle * 180.f / 3.14f);
+    counter++;
+    return counter;
 }
 
 void Bullet::speed(float32 direction){
-    body->ApplyLinearImpulseToCenter((b2Rot(direction*2).GetXAxis()), true);
-    body->ApplyLinearImpulseToCenter((b2Rot(direction*2).GetXAxis()), true);
-    body->ApplyLinearImpulseToCenter((b2Rot(direction*2).GetXAxis()), true);
+    b2Vec2 new_dir = b2Rot(direction-5).GetXAxis();
+    new_dir*=500;
+    body->ApplyLinearImpulseToCenter(new_dir, true);
+
 }
 
 sf::Sprite &Bullet::getSprite(){
