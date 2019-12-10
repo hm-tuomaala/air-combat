@@ -13,8 +13,9 @@ Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
     body = world->CreateBody(&blt);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circleShape;
-    fixtureDef.density = 0.1f;
+    fixtureDef.density = 0.01f;
     body->CreateFixture(&fixtureDef);
+    body->SetUserData(this);
 
     sf::Texture bullet_texture;
     bullet_texture.create(20,20);
@@ -56,4 +57,12 @@ void Bullet::speed(float32 direction){
 
 sf::Sprite &Bullet::getSprite(){
     return *bullet_sprite;
+}
+
+void Bullet::contact(){
+    bulletContact = true;
+}
+
+bool Bullet::getContact(){
+    return bulletContact;
 }

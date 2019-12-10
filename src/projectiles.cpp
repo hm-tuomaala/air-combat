@@ -37,7 +37,7 @@ const std::list<sf::Sprite> Projectiles::getSprites() const{
 
 void Projectiles::projectileStep(){
     for(auto Bullet : bullets){
-        if(Bullet->bulletStep() > 60){
+        if(Bullet->bulletStep() > 60 || Bullet->getContact() == true){
             toRemove_.push_back(Bullet);
         }
     }
