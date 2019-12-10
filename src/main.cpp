@@ -12,7 +12,7 @@
 
 int main(){
     //windowsetup
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
     sf::View view;
