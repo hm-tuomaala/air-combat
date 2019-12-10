@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "Box2D/Box2D.h"
 class Bullet{
@@ -9,9 +10,12 @@ public:
     b2Vec2 getPosition();
     float32 getDirection();
     sf::Sprite &getSprite();
+    void contact();
+    bool getContact();
 
 private:
     b2Body *body;
     sf::Sprite *bullet_sprite;
     int counter;
+    bool bulletContact = false;
 };
