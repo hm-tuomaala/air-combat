@@ -70,6 +70,7 @@ int main(){
             player->step();
             enPlanes->step();
             bullets->projectileStep();
+            enPlanes->removal();
             view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
             view.setSize(800, -600);
     		window.setView(view);
@@ -87,6 +88,7 @@ int main(){
                 player->planePitch(1);
             }
             enPlanes->planeControl(player->getPosition(), player->getDirection());
+            
         }
 
         //Draw

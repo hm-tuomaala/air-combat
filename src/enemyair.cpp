@@ -9,10 +9,24 @@ void EnemyAir::liftoff(){
 }
 
 void EnemyAir::step(){
-    for (auto i = planes_.begin() ; i != planes_.end(); i++){
-        if ((*i)->planeStep() <= 0){
+    for (auto i : planes_){
+        if (i->planeStep() <= 0){
+            planesToRemove_.push_back(i);
         }
     }
+}
+
+void EnemyAir::removal(){
+    for (auto i = planesToRemove_.begin() ; i != planesToRemove_.end(); i++){
+        Plane* deadPlane = *i;
+        delete deadPlane;
+        
+        std::list<Plane*>::iterator it = std::find(planes_.begin(), planes_.end(), deadPlane);
+        if (it != planes_.end()){
+            planes_.erase(it);
+        }
+    }
+    planesToRemove_.clear();
 }
 
 const std::list<sf::Sprite> EnemyAir::getSprites() const{
@@ -57,6 +71,5 @@ void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
         if ((dir - sep).Length() < 0.2){
             plane->accelerate();
         }
-        
     }
 }

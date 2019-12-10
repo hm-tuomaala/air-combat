@@ -85,6 +85,6 @@ void Plane::pitch(const int x){
 }
 
 void Plane::startContact(){
-    health -= 20;
+    health -= 10;
     sprite->setColor(sf::Color::Green);
 }
