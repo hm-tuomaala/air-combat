@@ -1,29 +1,32 @@
 #include "menu.hpp"
 #include <iostream>
-#include <stdio.h>  /* defines FILENAME_MAX */
-#ifdef WINDOWS
-    #include <direct.h>
-    #define GetCurrentDir _getcwd
-#else
-    #include <unistd.h>
-    #define GetCurrentDir getcwd
- #endif
+#include "global.hpp"
+// #include <stdio.h>  /* defines FILENAME_MAX */
+// #ifdef WINDOWS
+//     #include <direct.h>
+//     #define GetCurrentDir _getcwd
+// #else
+//     #include <unistd.h>
+//     #define GetCurrentDir getcwd
+//  #endif
 
 Menu::Menu(float width, float height){
 
-    char cCurrentPath[FILENAME_MAX];
-
-    if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))){
-        //err
-    }
-
-    std::cout << cCurrentPath << std::endl;
-
-    std::string path = std::string(cCurrentPath);
-
-    path.erase(path.size()-6);
-
-    std::cout << path << std::endl;
+    Global t;
+    std::string path = t.GetPath();
+    // char cCurrentPath[FILENAME_MAX];
+    //
+    // if (!GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))){
+    //     //err
+    // }
+    //
+    // std::cout << cCurrentPath << std::endl;
+    //
+    // std::string path = std::string(cCurrentPath);
+    //
+    // path.erase(path.size()-6);
+    //
+    // std::cout << path << std::endl;
 
     if (!font.loadFromFile(path + std::string("/Images/Xhume.ttf"))) {
         //error
