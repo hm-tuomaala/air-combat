@@ -11,7 +11,7 @@ public:
     b2Vec2 getPosition();
     float32 getDirection();
     sf::Sprite &getSprite();
-    void contact();
+    void startContact();
     bool getContact();
     int getEntityType(){return 0;}
 
