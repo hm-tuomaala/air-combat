@@ -17,9 +17,11 @@ public:
     const sf::Sprite getSprite() const;
     const b2Vec2 getPosition() const;
     const float32 getDirection() const;
+    const int getHp() const;
+    const int getLives() const;
 
 private:
-    int lives;
+    int lives_;
     Plane *plane_;
     b2World *world_;
 };
