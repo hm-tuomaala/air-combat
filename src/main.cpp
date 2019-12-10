@@ -8,6 +8,7 @@
 #include "menu.hpp"
 #include "projectiles.hpp"
 #include "player.hpp"
+#include "global.hpp"
 
 int main(){
     //windowsetup
@@ -28,6 +29,21 @@ int main(){
     enPlanes->liftoff();
 
     bool renderMenu = true;
+
+    Global g;
+    std::string path = g.GetPath();
+
+    sf::Font f;
+    f.loadFromFile(path + std::string("/Images/arial.ttf"));
+
+    int xpos = 370;
+    int ypos = -280;
+    sf::Text text;
+    text.setFont(f);
+    std::string hp = std::to_string(player->getHp());
+    text.setString("HP: " + hp);
+    text.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
+    text.setCharacterSize(20);
 
     while(window.isOpen()){
 
@@ -92,7 +108,7 @@ int main(){
                 player->planePitch(0);
             }
             enPlanes->planeControl(player->getPosition(), player->getDirection());
-            
+
         }
 
         //Draw
@@ -106,6 +122,11 @@ int main(){
             for(auto i : bullets->getSprites()){
                 window.draw(i);
             }
+            hp = std::to_string(player->getHp());
+            text.setString("HP: " + hp);
+            text.setPosition(view.getCenter().x - xpos, view.getCenter().y - ypos);
+            text.setScale(1.0, -1.0);
+            window.draw(text);
         } else {
             menu.Draw(window);
         }
