@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Box2D/Box2D.h"
-class Bullet{
+#include "entity.hpp"
+class Bullet : public Entity{
 public:
     Bullet(b2World *world, b2Vec2 position, float32 direction);
     ~Bullet();
@@ -12,6 +13,7 @@ public:
     sf::Sprite &getSprite();
     void contact();
     bool getContact();
+    int getEntityType(){return 0;}
 
 private:
     b2Body *body;

@@ -1,6 +1,7 @@
 #include "bullet.hpp"
 
 Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
+    //creation of bullet
     b2BodyDef blt;
     blt.type = b2_dynamicBody;
     blt.bullet = true;
@@ -10,6 +11,7 @@ Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
     circleShape.m_p.Set(1.0f, 3.0f);
     circleShape.m_radius = 0.5f;
 
+    //added to world and given shape
     body = world->CreateBody(&blt);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circleShape;
@@ -19,7 +21,8 @@ Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
 
     sf::Texture bullet_texture;
     bullet_texture.create(20,20);
-    
+
+    //creation of bullet sprite
     bullet_sprite = new sf::Sprite(bullet_texture);
     bullet_sprite->setTexture(bullet_texture);
     bullet_sprite->setScale(0.1, 0.1);

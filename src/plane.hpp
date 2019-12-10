@@ -3,8 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Box2D/Box2D.h"
+#include "entity.hpp"
 
-class Plane{
+class Plane : public Entity{
 public:
     Plane(b2World *world);
     ~Plane();
@@ -16,6 +17,7 @@ public:
     void accelerate();
     void pitch(const int x);
     void startContact();
+    int getEntityType() {return 1;}
 private:
     b2Body *body;
     sf::Sprite *sprite;
