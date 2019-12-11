@@ -47,6 +47,7 @@ int Bullet::bulletStep(){
     float32 angle = body->GetAngle();
     bullet_sprite->setPosition(position.x, position.y);
     bullet_sprite->setRotation(angle * 180.f / 3.14f);
+    //counter for projectile timer
     counter++;
     return counter;
 }

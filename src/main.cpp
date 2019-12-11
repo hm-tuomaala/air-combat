@@ -1,4 +1,4 @@
-#include <iostream>
+/*#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <stdio.h>
 
@@ -8,11 +8,13 @@
 #include "menu.hpp"
 #include "projectiles.hpp"
 #include "player.hpp"
-#include "global.hpp"
+#include "global.hpp"*/
+#include "gameLoop.hpp"
 
 int main(){
-    //windowsetup
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
+    gameLoop *loop = new gameLoop();
+    loop->loop();
+    /*sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
     sf::View view;
@@ -55,6 +57,7 @@ int main(){
     livesText.setPosition(view.getCenter().x - xpos + 100, view.getCenter().y - ypos);
     livesText.setCharacterSize(20);
     livesText.setScale(1.0, -1.0);
+
 
     while(window.isOpen()){
 
@@ -145,6 +148,6 @@ int main(){
             menu.Draw(window);
         }
         window.display();
-    }
+    }*/
 
 }
