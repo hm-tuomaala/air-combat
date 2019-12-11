@@ -3,7 +3,6 @@
 gameLoop::gameLoop(){
     window.create(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
-    //Menu *menu = new Menu(window.getSize().x, window.getSize().y);
     setup();
 }
 
@@ -12,11 +11,7 @@ gameLoop::~gameLoop(){
 }
 
 void gameLoop::setup(){
-    /*sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
-    window.setFramerateLimit(60);
-    sf::Event event;
-    sf::View view;
-    int delayCounter;*/
+
     menu = new Menu(window.getSize().x, window.getSize().y);
 
     fighterWorld = new World();
@@ -30,20 +25,20 @@ void gameLoop::setup(){
     renderMenu = true;
 
     Global g;
-    std::string path = g.GetPath();
+    path = g.GetPath();
 
-    sf::Font f;
+    //sf::Font f;
     f.loadFromFile(path + std::string("/Images/arial.ttf"));
 
     hudXPos = 370;
     hudYPos = -280;
-    sf::Text hpText;
-    sf::Text livesText;
+
     hpText.setFont(f);
     livesText.setFont(f);
 
-    std::string hp = std::to_string(player->getHp());
-    std::string lives = std::to_string(player->getLives());
+    hp = std::to_string(player->getHp());
+    lives = std::to_string(player->getLives());
+
 
     hpText.setString("HP: " + hp);
     hpText.setPosition(view.getCenter().x - hudXPos, view.getCenter().y - hudYPos);
@@ -146,6 +141,7 @@ void gameLoop::draw(){
     else {
         menu->Draw(window);
     }
+
     window.display();
 }
 
@@ -154,6 +150,7 @@ void gameLoop::loop(){
         startMenu();
         worldStep();
         draw();
+
     }
 
 }

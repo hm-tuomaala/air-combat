@@ -20,7 +20,7 @@ int main(){
     sf::View view;
     int delayCounter;
 
-    Menu menu(window.getSize().x, window.getSize().y);
+    Menu menu( , window.getSize().y);
 
     World *fighterWorld = new World();
     Player *player = new Player(&fighterWorld->get2bWorld());

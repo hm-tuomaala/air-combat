@@ -25,17 +25,20 @@ private:
     sf::RenderWindow window;
     sf::Event event;
     sf::View view;
+
     Menu *menu;
     World *fighterWorld;
     Player *player;
     EnemyAir *enPlanes;
     Projectiles *bullets;
+
     bool renderMenu;
-    Global g;
     std::string path;
     sf::Font f;
+
     int hudXPos;
     int hudYPos;
+
     std::string hp;
     std::string lives;
     sf::Text hpText;
