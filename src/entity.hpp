@@ -5,5 +5,5 @@
 class Entity{
 public:
     virtual int getEntityType() = 0;
-    virtual void startContact(){}
+    virtual void startContact(bool ground){}
 };

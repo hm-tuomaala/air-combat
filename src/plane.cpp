@@ -72,8 +72,9 @@ const int Plane::getHealth() const{
 
 void Plane::accelerate(){
     b2Vec2 dir = b2Rot(body_->GetAngle()).GetXAxis();
-    dir *= 1000;
-    body_->ApplyForceToCenter(dir, true);
+    dir *= 200;
+    if(std::abs(body_->GetLinearVelocity().x) < 80)
+        body_->ApplyForceToCenter(dir, true);
     //body->ApplyLinearImpulseToCenter(dir, true);
 }
 
@@ -86,13 +87,15 @@ void Plane::pitch(const int x){
     }
 }
 
-void Plane::startContact(){
-    health_ -= 10;
+void Plane::startContact(bool ground){
+    b2Vec2 linVel = body_->GetLinearVelocity();
+    if(!ground || std::abs(linVel.y) > 50)
+        health_ -= 10;
     sprite_->setColor(sf::Color::Green);
 }
 
 void Plane::shoot(Projectiles *projectiles){
-    if (shotDelay_ >= 7){ 
+    if (shotDelay_ >= 10){ 
         projectiles->create(getPosition(), getDirection());
         shotDelay_ = 0;
     }

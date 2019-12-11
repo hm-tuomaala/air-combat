@@ -17,7 +17,7 @@ public:
     const int planeStep();
     void accelerate();
     void pitch(const int x);
-    void startContact();
+    void startContact(bool ground);
     int getEntityType() {return 1;}
     void shoot(Projectiles *projectiles);
 private:

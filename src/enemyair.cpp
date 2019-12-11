@@ -40,7 +40,7 @@ const std::list<sf::Sprite> EnemyAir::getSprites() const{
 void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
     for (auto plane : planes_){
         b2Vec2 sep =pPos - plane->getPosition();
-        sep.Normalize();
+        float32 dist = sep.Normalize();
         b2Vec2 dir = b2Rot(plane->getDirection()).GetXAxis();
         if (dir.x > 0){
             if (sep.x > 0){
@@ -69,7 +69,8 @@ void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
             }
         }
         if ((dir - sep).Length() < 0.2){
-            plane->accelerate();
+            if (dist > 100)
+                plane->accelerate();
             plane->shoot(projectiles_);
         }
     }
