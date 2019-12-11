@@ -16,8 +16,8 @@ void gameLoop::setup(){
 
     fighterWorld = new World();
     player = new Player(&fighterWorld->get2bWorld());
-    enPlanes = new EnemyAir(&fighterWorld->get2bWorld());
     bullets = new Projectiles(&fighterWorld->get2bWorld());
+    enPlanes = new EnemyAir(&fighterWorld->get2bWorld(), bullets);
     enPlanes->liftoff();
     enPlanes->liftoff();
     enPlanes->liftoff();
@@ -99,7 +99,7 @@ void gameLoop::worldStep(){
         view.setSize(800, -600);
         window.setView(view);
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-            bullets->create(player->getPosition(), player->getDirection());
+            player->planeShoot(bullets);
         }
 
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
