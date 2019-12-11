@@ -1,13 +1,20 @@
 #include "plane.hpp"
 
-Plane::Plane(b2World *world){
-    health_ = 100;
+int CEILING = 400;
+
+Plane::Plane(b2World *world, int difficulty){
+    //difficulty 5 is player
+    health_ = difficulty * 20;
+    shotInterval_ = 50/difficulty;
     shotDelay_ = 0;
 
     //creation and setup of the physics body of the plane
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(0.0f, 100.0f);
+    if (difficulty == 5)
+        bodyDef.position.Set(-200.0f, 100.0f);
+    else 
+        bodyDef.position.Set(200.0f, 100.0f);
     body_ = world->CreateBody(&bodyDef);
     b2PolygonShape dynamicBox;
     dynamicBox.SetAsBox(10.0f, 5.0f);
@@ -40,11 +47,16 @@ const int Plane::planeStep(){
 
     //adding some force to make plane resist traveling in directions other than forward
     b2Vec2 linVel = body_->GetLinearVelocity();
+    b2Vec2 lift = b2Vec2(0, 1 * std::abs(linVel.x * 0.5));
     float32 speed = linVel.Normalize();
     linVel *= 2;
-    b2Vec2 lift = (b2Rot(body_->GetAngle()).GetXAxis() - linVel);
-    lift *= speed;
-    body_->ApplyForceToCenter(lift, true);
+    b2Vec2 steering = (b2Rot(body_->GetAngle()).GetXAxis() - linVel);
+    steering *= speed*2;
+    body_->ApplyForceToCenter(lift + steering, true);
+
+    // a soft ceiling limit
+    if (position.y > CEILING)
+        body_->ApplyForceToCenter(b2Vec2(0, -100), true);
 
     //update sprite position
     sprite_->setPosition(position.x, position.y);
@@ -73,7 +85,7 @@ const int Plane::getHealth() const{
 void Plane::accelerate(){
     b2Vec2 dir = b2Rot(body_->GetAngle()).GetXAxis();
     dir *= 200;
-    if(std::abs(body_->GetLinearVelocity().x) < 80)
+    if(std::abs(body_->GetLinearVelocity().x) < 80 && (body_->GetPosition().y < CEILING || dir.y < 0))
         body_->ApplyForceToCenter(dir, true);
     //body->ApplyLinearImpulseToCenter(dir, true);
 }

@@ -5,7 +5,7 @@ EnemyAir::EnemyAir(b2World *world, Projectiles *projectiles)
 }
 
 void EnemyAir::liftoff(){
-    planes_.push_back(new Plane(world_));
+    planes_.push_back(new Plane(world_, 2));
 }
 
 void EnemyAir::step(){

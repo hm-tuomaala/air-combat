@@ -8,7 +8,7 @@
 
 class Plane : public Entity{
 public:
-    Plane(b2World *world);
+    Plane(b2World *world, int difficulty);
     ~Plane();
     const b2Vec2 getPosition() const;
     const float32 getDirection() const;
@@ -24,5 +24,6 @@ private:
     b2Body *body_;
     sf::Sprite *sprite_;
     int health_;
+    int shotInterval_;
     int shotDelay_;
 };

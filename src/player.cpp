@@ -2,7 +2,7 @@
 
 Player::Player(b2World *world)
     : world_(world) {
-    plane_ = new Plane(world_);
+    plane_ = new Plane(world_, 5);
     lives_ = 12;
 }
 
@@ -29,7 +29,7 @@ void Player::planeShoot(Projectiles *projectiles){
 
 void Player::respawn(){
     delete plane_;
-    plane_ = new Plane(world_);
+    plane_ = new Plane(world_, 5);
     lives_--;
 }
 
