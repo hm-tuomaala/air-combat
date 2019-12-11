@@ -13,6 +13,7 @@ public:
     void respawn();
     void planePitch(const int x);
     void planeAccelerate();
+    void planeShoot(Projectiles *projectiles);
     void step();
     const sf::Sprite getSprite() const;
     const b2Vec2 getPosition() const;

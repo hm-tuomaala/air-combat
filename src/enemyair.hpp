@@ -9,7 +9,7 @@
 class EnemyAir{
 /*Stores and controls enemy air units*/
 public:
-    EnemyAir(b2World *world);
+    EnemyAir(b2World *world, Projectiles *projectiles);
     void liftoff();
     void planeControl(b2Vec2 pPos, float32 pDir);
     void step();
@@ -20,5 +20,5 @@ private:
     std::list<Plane*> planes_;
     std::list<Plane*> planesToRemove_;
     b2World *world_;
-
+    Projectiles *projectiles_;
 };

@@ -1,7 +1,7 @@
 #include "enemyair.hpp"
 
-EnemyAir::EnemyAir(b2World *world)
-    : world_(world){
+EnemyAir::EnemyAir(b2World *world, Projectiles *projectiles)
+    : world_(world), projectiles_(projectiles){
 }
 
 void EnemyAir::liftoff(){
@@ -70,6 +70,7 @@ void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
         }
         if ((dir - sep).Length() < 0.2){
             plane->accelerate();
+            plane->shoot(projectiles_);
         }
     }
 }

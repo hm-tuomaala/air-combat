@@ -1,90 +1,99 @@
 #include "plane.hpp"
 
 Plane::Plane(b2World *world){
-    health = 100;
+    health_ = 100;
+    shotDelay_ = 0;
 
     //creation and setup of the physics body of the plane
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(0.0f, 100.0f);
-    body = world->CreateBody(&bodyDef);
+    body_ = world->CreateBody(&bodyDef);
     b2PolygonShape dynamicBox;
     dynamicBox.SetAsBox(10.0f, 5.0f);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 0.02f;
-    body->CreateFixture(&fixtureDef);
-    body->SetAngularDamping(2.0f);
-    body->SetUserData(this);
+    body_->CreateFixture(&fixtureDef);
+    body_->SetAngularDamping(2.0f);
+    body_->SetUserData(this);
 
     //create plane sprite
     sf::Texture plane_texture;
     //plane_texture.loadFromFile("../Images/fighter.png");
     plane_texture.create(20, 10);
-    sprite = new sf::Sprite(plane_texture);
-    sprite->setOrigin(10.f, 5.f);
-    sprite->setTexture(plane_texture);
+    sprite_ = new sf::Sprite(plane_texture);
+    sprite_->setOrigin(10.f, 5.f);
+    sprite_->setTexture(plane_texture);
     //sprite->setScale(0.01f, 0.01f);
-    sprite->setColor(sf::Color::Magenta);
+    sprite_->setColor(sf::Color::Magenta);
 }
 
 Plane::~Plane(){
-    body->GetWorld()->DestroyBody(body);
+    body_->GetWorld()->DestroyBody(body_);
 }
 
-const int Plane::planeStep() const{
-    b2Vec2 position = body->GetPosition();
-    float32 angle = body->GetAngle();
+const int Plane::planeStep(){
+    b2Vec2 position = body_->GetPosition();
+    float32 angle = body_->GetAngle();
+    shotDelay_ ++;
 
     //adding some force to make plane resist traveling in directions other than forward
-    b2Vec2 linVel = body->GetLinearVelocity();
+    b2Vec2 linVel = body_->GetLinearVelocity();
     float32 speed = linVel.Normalize();
     linVel *= 2;
-    b2Vec2 lift = (b2Rot(body->GetAngle()).GetXAxis() - linVel);
+    b2Vec2 lift = (b2Rot(body_->GetAngle()).GetXAxis() - linVel);
     lift *= speed;
-    body->ApplyForceToCenter(lift, true);
+    body_->ApplyForceToCenter(lift, true);
 
     //update sprite position
-    sprite->setPosition(position.x, position.y);
-    sprite->setRotation(angle * 180.f / 3.14f);
+    sprite_->setPosition(position.x, position.y);
+    sprite_->setRotation(angle * 180.f / 3.14f);
 
     //returns the health of the plane
-    return health;
+    return health_;
 }
 
 const b2Vec2 Plane::getPosition() const{
-    return body->GetPosition();
+    return body_->GetPosition();
 }
 
 const float32 Plane::getDirection() const{
-    return body->GetAngle();
+    return body_->GetAngle();
 }
 
 const sf::Sprite &Plane::getSprite() const{
-    return *sprite;
+    return *sprite_;
 }
 
 const int Plane::getHealth() const{
-    return health;
+    return health_;
 }
 
 void Plane::accelerate(){
-    b2Vec2 dir = b2Rot(body->GetAngle()).GetXAxis();
+    b2Vec2 dir = b2Rot(body_->GetAngle()).GetXAxis();
     dir *= 1000;
-    body->ApplyForceToCenter(dir, true);
+    body_->ApplyForceToCenter(dir, true);
     //body->ApplyLinearImpulseToCenter(dir, true);
 }
 
 void Plane::pitch(const int x){
     if (x==0){
-        body->ApplyAngularImpulse(15, true);
+        body_->ApplyAngularImpulse(15, true);
     }
     else if (x==1){
-        body->ApplyAngularImpulse(-15, true);
+        body_->ApplyAngularImpulse(-15, true);
     }
 }
 
 void Plane::startContact(){
-    health -= 10;
-    sprite->setColor(sf::Color::Green);
+    health_ -= 10;
+    sprite_->setColor(sf::Color::Green);
+}
+
+void Plane::shoot(Projectiles *projectiles){
+    if (shotDelay_ >= 7){ 
+        projectiles->create(getPosition(), getDirection());
+        shotDelay_ = 0;
+    }
 }

@@ -23,6 +23,10 @@ void Player::planeAccelerate(){
     plane_->accelerate();
 }
 
+void Player::planeShoot(Projectiles *projectiles){
+    plane_->shoot(projectiles);
+}
+
 void Player::respawn(){
     delete plane_;
     plane_ = new Plane(world_);

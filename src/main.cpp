@@ -22,8 +22,8 @@ int main(){
 
     World *fighterWorld = new World();
     Player *player = new Player(&fighterWorld->get2bWorld());
-    EnemyAir *enPlanes = new EnemyAir(&fighterWorld->get2bWorld());
     Projectiles *bullets = new Projectiles(&fighterWorld->get2bWorld());
+    EnemyAir *enPlanes = new EnemyAir(&fighterWorld->get2bWorld(), bullets);
     enPlanes->liftoff();
     enPlanes->liftoff();
     enPlanes->liftoff();
@@ -103,9 +103,8 @@ int main(){
             view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
             view.setSize(800, -600);
     		window.setView(view);
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && delayCounter > 7){
-                bullets->create(player->getPosition(), player->getDirection());
-                delayCounter = 0;
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+                player->planeShoot(bullets);
             }
             delayCounter++;
 
