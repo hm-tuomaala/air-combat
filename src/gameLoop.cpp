@@ -3,7 +3,6 @@
 gameLoop::gameLoop(){
     window.create(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
-
     //Menu *menu = new Menu(window.getSize().x, window.getSize().y);
     setup();
 }
@@ -17,18 +16,18 @@ void gameLoop::setup(){
     window.setFramerateLimit(60);
     sf::Event event;
     sf::View view;
-    int delayCounter;
-    Menu menu(window.getSize().x, window.getSize().y);*/
+    int delayCounter;*/
+    menu = new Menu(window.getSize().x, window.getSize().y);
 
-    World *fighterWorld = new World();
-    Player *player = new Player(&fighterWorld->get2bWorld());
-    EnemyAir *enPlanes = new EnemyAir(&fighterWorld->get2bWorld());
-    Projectiles *bullets = new Projectiles(&fighterWorld->get2bWorld());
+    fighterWorld = new World();
+    player = new Player(&fighterWorld->get2bWorld());
+    enPlanes = new EnemyAir(&fighterWorld->get2bWorld());
+    bullets = new Projectiles(&fighterWorld->get2bWorld());
     enPlanes->liftoff();
     enPlanes->liftoff();
     enPlanes->liftoff();
 
-    bool renderMenu = true;
+    renderMenu = true;
 
     Global g;
     std::string path = g.GetPath();
@@ -36,8 +35,8 @@ void gameLoop::setup(){
     sf::Font f;
     f.loadFromFile(path + std::string("/Images/arial.ttf"));
 
-    int hudXPos = 370;
-    int hudYPos = -280;
+    hudXPos = 370;
+    hudYPos = -280;
     sf::Text hpText;
     sf::Text livesText;
     hpText.setFont(f);
@@ -59,74 +58,73 @@ void gameLoop::setup(){
 
 void gameLoop::startMenu(){
     while(window.pollEvent(event)){
-    if (event.type == sf::Event::Closed){
-        window.close();
-    } else if (event.type == sf::Event::KeyReleased) {
-        if (event.key.code == sf::Keyboard::Up) {
-            menu->MoveUp();
-            break;
-        } else if (event.key.code == sf::Keyboard::Down) {
-            menu->MoveDown();
-            break;
-        } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 0) {
-            renderMenu = false;
-        } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 2) {
+        if (event.type == sf::Event::Closed){
             window.close();
-        }
-    } else if (event.type == sf::Event::MouseMoved && renderMenu) {
-        if (event.mouseMove.x > 333 && event.mouseMove.x < 430 && event.mouseMove.y > 166 && event.mouseMove.y < 203) {
-            menu->HighlightIndex(0);
-        } else if (event.mouseMove.x > 333 && event.mouseMove.x < 516 && event.mouseMove.y > 315 && event.mouseMove.y < 356) {
-            menu->HighlightIndex(1);
-        } else if (event.mouseMove.x > 333 && event.mouseMove.x < 431 && event.mouseMove.y > 465 && event.mouseMove.y < 497) {
-            menu->HighlightIndex(2);
-        }
-    } else if (event.type == sf::Event::MouseButtonPressed && renderMenu) {
-        if (event.mouseButton.x > 333 && event.mouseButton.x < 430 && event.mouseButton.y > 166 && event.mouseButton.y < 203) {
-            renderMenu = false;
-        } else if (event.mouseButton.x > 333 && event.mouseButton.x < 516 && event.mouseButton.y > 315 && event.mouseButton.y < 356) {
-            //Option lohko
-        } else if (event.mouseButton.x > 333 && event.mouseButton.x < 431 && event.mouseButton.y > 465 && event.mouseButton.y < 497) {
-            window.close();
+        } else if (event.type == sf::Event::KeyReleased) {
+            if (event.key.code == sf::Keyboard::Up) {
+                menu->MoveUp();
+                break;
+            } else if (event.key.code == sf::Keyboard::Down) {
+                menu->MoveDown();
+                break;
+            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 0) {
+                renderMenu = false;
+            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 2) {
+                window.close();
+            }
+        } else if (event.type == sf::Event::MouseMoved && renderMenu) {
+            if (event.mouseMove.x > 333 && event.mouseMove.x < 430 && event.mouseMove.y > 166 && event.mouseMove.y < 203) {
+                menu->HighlightIndex(0);
+            } else if (event.mouseMove.x > 333 && event.mouseMove.x < 516 && event.mouseMove.y > 315 && event.mouseMove.y < 356) {
+                menu->HighlightIndex(1);
+            } else if (event.mouseMove.x > 333 && event.mouseMove.x < 431 && event.mouseMove.y > 465 && event.mouseMove.y < 497) {
+                menu->HighlightIndex(2);
+            }
+        } else if (event.type == sf::Event::MouseButtonPressed && renderMenu) {
+            if (event.mouseButton.x > 333 && event.mouseButton.x < 430 && event.mouseButton.y > 166 && event.mouseButton.y < 203) {
+                renderMenu = false;
+            } else if (event.mouseButton.x > 333 && event.mouseButton.x < 516 && event.mouseButton.y > 315 && event.mouseButton.y < 356) {
+                //Option lohko
+            } else if (event.mouseButton.x > 333 && event.mouseButton.x < 431 && event.mouseButton.y > 465 && event.mouseButton.y < 497) {
+                window.close();
+            }
         }
     }
 }
-}
 
 void gameLoop::worldStep(){
-        if (!renderMenu) {
-            fighterWorld->worldStep();
-
-            player->step();
-            enPlanes->step();
-            bullets->projectileStep();
-            bullets->remove();
-            enPlanes->removal();
-            view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
-            view.setSize(800, -600);
-    		window.setView(view);
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-                bullets->create(player->getPosition(), player->getDirection());
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-                player->planeAccelerate();
-            }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-                player->planePitch(1);
-            }
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-                player->planePitch(0);
-            }
-            enPlanes->planeControl(player->getPosition(), player->getDirection());
-
+    if (!renderMenu) {
+        fighterWorld->worldStep();
+        player->step();
+        enPlanes->step();
+        bullets->projectileStep();
+        bullets->remove();
+        enPlanes->removal();
+        view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
+        view.setSize(800, -600);
+        window.setView(view);
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+            bullets->create(player->getPosition(), player->getDirection());
         }
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+            player->planeAccelerate();
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+            player->planePitch(1);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+            player->planePitch(0);
+        }
+        enPlanes->planeControl(player->getPosition(), player->getDirection());
+
+    }
 
 }
 
 void gameLoop::draw(){
     window.clear(sf::Color::Blue);
-    //if (!renderMenu) {
+    if (!renderMenu) {
         window.draw(fighterWorld->getGround());
         window.draw(player->getSprite());
         for (auto i : enPlanes->getSprites()){
@@ -135,6 +133,7 @@ void gameLoop::draw(){
         for(auto i : bullets->getSprites()){
             window.draw(i);
         }
+        
         hp = std::to_string(player->getHp());
         lives = std::to_string(player->getLives());
         hpText.setString("HP: " + hp);
@@ -143,21 +142,18 @@ void gameLoop::draw(){
         livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
         window.draw(hpText);
         window.draw(livesText);
-    //} else {
-        //menu->Draw(window);
-    //}
+    } 
+    else {
+        menu->Draw(window);
+    }
     window.display();
 }
 
 void gameLoop::loop(){
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::White);
     while(window.isOpen()){
         startMenu();
-        //worldStep();
+        worldStep();
         draw();
-        //menu->Draw(window);
-        //window.draw(shape);
     }
 
 }
