@@ -3,6 +3,7 @@
 gameLoop::gameLoop(){
     window.create(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
+    menu = new Menu(window.getSize().x, window.getSize().y);
     setup();
 }
 
@@ -11,7 +12,8 @@ gameLoop::~gameLoop(){
 }
 
 void gameLoop::setup(){
-    menu = new Menu(window.getSize().x, window.getSize().y);
+    ending = 0;
+    renderMenu = true;
 
     fighterWorld = new World();
     player = new Player(&fighterWorld->get2bWorld());
@@ -20,8 +22,6 @@ void gameLoop::setup(){
     enPlanes->liftoff();
     enPlanes->liftoff();
     enPlanes->liftoff();
-
-    renderMenu = true;
 
     Global g;
     path = g.GetPath();
@@ -47,6 +47,8 @@ void gameLoop::setup(){
     livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
     livesText.setCharacterSize(20);
     livesText.setScale(1.0, -1.0);
+    
+    loop();
 }
 
 void gameLoop::startMenu(){
@@ -91,7 +93,12 @@ void gameLoop::worldStep(){
     enPlanes->step();
     bullets->projectileStep();
     bullets->remove();
-    enPlanes->removal();
+    if (enPlanes->removal() <= 0){
+        ending = 1;
+    }
+    else if(player->getLives() <=0){
+        ending = 2;
+    }
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
         player->planeShoot(bullets);
     }
@@ -129,13 +136,31 @@ void gameLoop::draw(){
     window.draw(livesText);
 }
 
+void gameLoop::endScreen(){
+    //deletes old objects and rests game to menu for now
+    if (ending == 1){
+        //win
+    }
+    else{
+        //loss
+    }
+    delete bullets;
+    delete player;
+    delete enPlanes;
+    delete fighterWorld;
+    setup();
+}
+
 void gameLoop::loop(){
     while(window.isOpen()){
         startMenu();
         window.clear(sf::Color::Blue);
-        if (!renderMenu){
+        if (!renderMenu && ending == 0){
             worldStep();
             draw();
+        }
+        else if(ending != 0){
+            endScreen();
         }
         else {
             menu->Draw(window);

@@ -3,6 +3,7 @@
 #include "bullet.hpp"
 
 class ContactListener : public b2ContactListener{
+/*modification of BeginContact to handle collision damage*/
 public:
     virtual void BeginContact(b2Contact* contact){
         b2Body *bodyA = contact->GetFixtureA()->GetBody();

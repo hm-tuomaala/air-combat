@@ -14,7 +14,7 @@ public:
     void planeControl(b2Vec2 pPos, float32 pDir);
     void step();
     const std::list<sf::Sprite> getSprites() const;
-    void removal();
+    const int removal();
 
 private:
     std::list<Plane*> planes_;

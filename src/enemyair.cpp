@@ -16,7 +16,8 @@ void EnemyAir::step(){
     }
 }
 
-void EnemyAir::removal(){
+const int EnemyAir::removal(){
+    // removes planes in removal buffer and returns number of planes left
     for (auto i = planesToRemove_.begin() ; i != planesToRemove_.end(); i++){
         Plane* deadPlane = *i;
         delete deadPlane;
@@ -27,6 +28,7 @@ void EnemyAir::removal(){
         }
     }
     planesToRemove_.clear();
+    return planes_.size();
 }
 
 const std::list<sf::Sprite> EnemyAir::getSprites() const{

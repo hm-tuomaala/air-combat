@@ -5,6 +5,7 @@
 #include "bullet.hpp"
 
 class Projectiles{
+/* handles all projectiles */
 public:
     Projectiles(b2World *world);
     ~Projectiles();

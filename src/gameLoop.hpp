@@ -19,6 +19,7 @@ public:
     void worldStep();
     void draw();
     void setup();
+    void endScreen();
     void loop();
 
 private:
@@ -44,5 +45,5 @@ private:
     sf::Text hpText;
     sf::Text livesText;
 
-
+    int ending;
 };
