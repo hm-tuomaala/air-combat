@@ -11,7 +11,6 @@ gameLoop::~gameLoop(){
 }
 
 void gameLoop::setup(){
-
     menu = new Menu(window.getSize().x, window.getSize().y);
 
     fighterWorld = new World();
@@ -27,7 +26,6 @@ void gameLoop::setup(){
     Global g;
     path = g.GetPath();
 
-    //sf::Font f;
     f.loadFromFile(path + std::string("/Images/arial.ttf"));
 
     hudXPos = 370;
@@ -88,69 +86,60 @@ void gameLoop::startMenu(){
 }
 
 void gameLoop::worldStep(){
-    if (!renderMenu) {
-        fighterWorld->worldStep();
-        player->step();
-        enPlanes->step();
-        bullets->projectileStep();
-        bullets->remove();
-        enPlanes->removal();
-        view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
-        view.setSize(800, -600);
-        window.setView(view);
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-            player->planeShoot(bullets);
-        }
-
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
-            player->planeAccelerate();
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-            player->planePitch(1);
-        }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-            player->planePitch(0);
-        }
-        enPlanes->planeControl(player->getPosition(), player->getDirection());
-
+    fighterWorld->worldStep();
+    player->step();
+    enPlanes->step();
+    bullets->projectileStep();
+    bullets->remove();
+    enPlanes->removal();
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+        player->planeShoot(bullets);
     }
-
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+        player->planeAccelerate();
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+        player->planePitch(1);
+    }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+        player->planePitch(0);
+    }
+    enPlanes->planeControl(player->getPosition(), player->getDirection());
 }
 
 void gameLoop::draw(){
-    window.clear(sf::Color::Blue);
-    if (!renderMenu) {
-        window.draw(fighterWorld->getGround());
-        window.draw(player->getSprite());
-        for (auto i : enPlanes->getSprites()){
-            window.draw(i);
-        }
-        for(auto i : bullets->getSprites()){
-            window.draw(i);
-        }
-        
-        hp = std::to_string(player->getHp());
-        lives = std::to_string(player->getLives());
-        hpText.setString("HP: " + hp);
-        hpText.setPosition(view.getCenter().x - hudXPos, view.getCenter().y - hudYPos);
-        livesText.setString("Lives: " + lives);
-        livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
-        window.draw(hpText);
-        window.draw(livesText);
-    } 
-    else {
-        menu->Draw(window);
+    view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
+    view.setSize(800, -600);
+    window.setView(view);
+    window.draw(fighterWorld->getGround());
+    window.draw(player->getSprite());
+    for (auto i : enPlanes->getSprites()){
+        window.draw(i);
     }
-
-    window.display();
+    for(auto i : bullets->getSprites()){
+        window.draw(i);
+    }
+    hp = std::to_string(player->getHp());
+    lives = std::to_string(player->getLives());
+    hpText.setString("HP: " + hp);
+    hpText.setPosition(view.getCenter().x - hudXPos, view.getCenter().y - hudYPos);
+    livesText.setString("Lives: " + lives);
+    livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
+    window.draw(hpText);
+    window.draw(livesText);
 }
 
 void gameLoop::loop(){
     while(window.isOpen()){
         startMenu();
-        worldStep();
-        draw();
-
+        window.clear(sf::Color::Blue);
+        if (!renderMenu){
+            worldStep();
+            draw();
+        }
+        else {
+            menu->Draw(window);
+        }
+        window.display();
     }
-
 }
