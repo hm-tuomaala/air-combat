@@ -60,6 +60,7 @@ private:
     sf::Text ammosText;
 
     sf::Texture planeTexture;
+    sf::Texture enemyTexture;
 
     int ending;
     int enemyAirToSpawn;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <stdlib.h>  
 #include <iostream>
 #include "Box2D/Box2D.h"
 #include "entity.hpp"
@@ -8,7 +9,7 @@
 
 class groundUnit : public Entity{
 public:
-    groundUnit(b2World *world, int difficulty);
+    groundUnit(b2World *world, int difficulty, sf::Texture& texture);
     ~groundUnit();
     b2Vec2 getPosition();
     float32 getDirection();

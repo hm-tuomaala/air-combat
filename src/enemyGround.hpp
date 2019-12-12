@@ -8,9 +8,9 @@
 class enemyGround{
 /*Store and control enemy ground units*/
 public:
-    enemyGround(b2World *world, Projectiles *projectile);
+    enemyGround(b2World *world, Projectiles *projectile, sf::Texture& texture);
     ~enemyGround();
-    void create();
+    void create(sf::Texture& texture);
     void step();
     const int toRemove();
     const std::list<sf::Sprite> getSprites() const;
@@ -20,6 +20,7 @@ public:
 private:
     std::list<groundUnit*> groundUnit_;
     std::list<groundUnit*> groundUnitToRemove_;
+    sf::Texture texture_;
     b2World *world_;
     Projectiles *projectiles_;
 };
