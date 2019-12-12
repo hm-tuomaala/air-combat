@@ -13,11 +13,11 @@ Plane::Plane(b2World *world, int difficulty){
     bodyDef.type = b2_dynamicBody;
     if (difficulty == 5){
         bodyDef.position.Set(-300.0f, 10.0f);
-        ammo_ = 200;
+        ammo_ = 50;
     }
     else {
         bodyDef.position.Set(300.0f, 10.0f);
-        ammo_ = 100;
+        ammo_ = 1000;
     }
     body_ = world->CreateBody(&bodyDef);
     b2PolygonShape dynamicBox;
@@ -113,9 +113,11 @@ void Plane::startContact(bool ground){
     sprite_->setColor(sf::Color::Green);
 }
 
-void Plane::shoot(Projectiles *projectiles){
-    if (shotDelay_ >= shotInterval_){ 
+const int Plane::shoot(Projectiles *projectiles){
+    if (shotDelay_ >= shotInterval_ && ammo_ >= 0){ 
         projectiles->create(getPosition(), getDirection());
         shotDelay_ = 0;
+        ammo_--;
     }
+    return ammo_;
 }

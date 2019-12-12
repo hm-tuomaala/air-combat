@@ -19,7 +19,7 @@ public:
     void pitch(const int x);
     void startContact(bool ground);
     int getEntityType() {return 1;}
-    void shoot(Projectiles *projectiles);
+    const int shoot(Projectiles *projectiles);
 private:
     b2Body *body_;
     sf::Sprite *sprite_;

@@ -23,8 +23,9 @@ void Player::planeAccelerate(){
     plane_->accelerate();
 }
 
-void Player::planeShoot(Projectiles *projectiles){
-    plane_->shoot(projectiles);
+const int Player::planeShoot(Projectiles *projectiles){
+    int ammo = plane_->shoot(projectiles);
+    return ammo;
 }
 
 void Player::respawn(){
