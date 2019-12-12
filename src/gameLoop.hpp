@@ -13,7 +13,7 @@
 #include "options.hpp"
 #include "enemyGround.hpp"
 #include "win.hpp"
-// #include "lose.hpp"
+#include "lose.hpp"
 
 class gameLoop{
 public:
@@ -26,6 +26,7 @@ public:
     void endScreen();
     int enemySpawn();
     void loop();
+    void difficultySpawns();
 
 
 private:
@@ -41,6 +42,9 @@ private:
     Projectiles *bullets;
     enemyGround *enGround;
     Win *win;
+    Lose *lose;
+
+    bool difficultySetup;
 
     bool renderMenu;
     bool renderOptions;

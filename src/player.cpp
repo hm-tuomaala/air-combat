@@ -3,7 +3,7 @@
 Player::Player(b2World *world, sf::Texture& texture)
     : world_(world), texture_(texture){
     plane_ = new Plane(world_, 5, texture_);
-    lives_ = 12;
+    lives_ = 3;
 }
 
 Player::~Player(){
