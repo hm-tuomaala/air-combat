@@ -70,3 +70,21 @@ void Options::HighlightCurDif(int current){
     options_[2].setFillColor(sf::Color::White);
     options_[current].setFillColor(sf::Color::Red);
 }
+
+
+void Options::MoveUp(){
+    if (curDif_ - 1 >= 0) {
+        options_[curDif_].setFillColor(sf::Color::White);
+        curDif_--;
+        options_[curDif_].setFillColor(sf::Color::Red);
+    }
+}
+
+
+void Options::MoveDown(){
+    if (curDif_ + 1 < 3) {
+        options_[curDif_].setFillColor(sf::Color::White);
+        curDif_++;
+        options_[curDif_].setFillColor(sf::Color::Red);
+    }
+}

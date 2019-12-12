@@ -63,18 +63,25 @@ void gameLoop::startMenu(){
         if (event.type == sf::Event::Closed){
             window.close();
         } else if (event.type == sf::Event::KeyReleased) {
-            if (event.key.code == sf::Keyboard::Up) {
+            if (event.key.code == sf::Keyboard::Up && renderMenu && !renderOptions) {
                 menu->MoveUp();
                 break;
-            } else if (event.key.code == sf::Keyboard::Down) {
+            } else if (event.key.code == sf::Keyboard::Down && renderMenu && !renderOptions) {
                 menu->MoveDown();
                 break;
-            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 0) {
+            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 0 && !renderOptions) {
                 renderMenu = false;
-            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 2) {
+            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 2 && !renderOptions) {
                 window.close();
-            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 1) {
+            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 1 && !renderOptions) {
                 renderOptions = true;
+            } else if (event.key.code == sf::Keyboard::Up && renderMenu && renderOptions) {
+                options->MoveUp();
+            } else if (event.key.code == sf::Keyboard::Down && renderMenu && renderOptions) {
+                options->MoveDown();
+            } else if (event.key.code == sf::Keyboard::Return && renderOptions) {
+                renderOptions = false;
+                // std::cout << options->GetDifficulty() << std::endl;
             }
         } else if (event.type == sf::Event::MouseMoved && renderMenu && !renderOptions) {
             if (event.mouseMove.x > 333 && event.mouseMove.x < 430 && event.mouseMove.y > 166 && event.mouseMove.y < 203) {
@@ -94,7 +101,7 @@ void gameLoop::startMenu(){
                 window.close();
             }
         } else if (event.type == sf::Event::MouseButtonPressed && renderOptions) {
-            std::cout << event.mouseButton.x << ", " << event.mouseButton.y << std::endl;
+            //std::cout << event.mouseButton.x << ", " << event.mouseButton.y << std::endl;
             if (event.mouseButton.x > 55 && event.mouseButton.x < 111 && event.mouseButton.y < 571 && event.mouseButton.y > 539) {
                 renderOptions = false;
             } else if (event.mouseButton.x > 335 && event.mouseButton.x < 422 && event.mouseButton.y < 284 && event.mouseButton.y > 252) {
