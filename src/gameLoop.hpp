@@ -26,6 +26,7 @@ public:
     void endScreen();
     int enemySpawn();
     void loop();
+    void difficultySpawns();
 
 private:
     sf::RenderWindow window;
@@ -40,6 +41,8 @@ private:
     Projectiles *bullets;
     enemyGround *enGround;
     Win *win;
+
+    bool difficultySetup;
 
     bool renderMenu;
     bool renderOptions;

@@ -4,8 +4,8 @@ EnemyAir::EnemyAir(b2World *world, Projectiles *projectiles)
     : world_(world), projectiles_(projectiles){
 }
 
-void EnemyAir::liftoff(sf::Texture& texture){
-    planes_.push_back(new Plane(world_, 2, texture));
+void EnemyAir::liftoff(sf::Texture& texture, const int difficulty){
+    planes_.push_back(new Plane(world_, difficulty, texture));
 }
 
 void EnemyAir::step(){
