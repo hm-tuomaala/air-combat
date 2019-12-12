@@ -6,8 +6,8 @@ public:
     ~Options();
 
     void Draw(sf::RenderWindow& window);
-    // void MoveUp();
-    // void MoveDown();
+    void MoveUp();
+    void MoveDown();
     //
     void HighlightCurDif(int current);
 

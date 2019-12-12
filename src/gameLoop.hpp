@@ -11,6 +11,8 @@
 #include "player.hpp"
 #include "global.hpp"
 #include "options.hpp"
+#include "win.hpp"
+// #include "lose.hpp"
 
 class gameLoop{
 public:
@@ -35,9 +37,12 @@ private:
     Player *player;
     EnemyAir *enPlanes;
     Projectiles *bullets;
+    Win *win;
 
     bool renderMenu;
     bool renderOptions;
+    bool renderWin;
+    bool renderLose;
     std::string path;
     sf::Font f;
 
