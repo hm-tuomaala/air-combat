@@ -182,6 +182,7 @@ void gameLoop::worldStep(){
         player->planePitch(0);
     }
     enPlanes->planeControl(player->getPosition(), player->getDirection());
+    enGround->shotDirection(player->getDirection(), player->getPosition());
 }
 
 void gameLoop::draw(){

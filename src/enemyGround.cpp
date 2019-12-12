@@ -12,12 +12,12 @@ void enemyGround::step(){
 }
 enemyGround::~enemyGround(){
     for (auto it : groundUnit_){
-        delete(it);
+        delete it;
     }
 }
 
 void enemyGround::create(sf::Texture& texture){
-    groundUnit_.push_back(new groundUnit(world_, 1, texture_));
+    groundUnit_.push_back(new groundUnit(world_, texture_));
 }
 
 const int enemyGround::toRemove(){
@@ -44,6 +44,6 @@ const std::list<sf::Sprite> enemyGround::getSprites() const{
 
 void enemyGround::shotDirection(float32 playerDirection, b2Vec2 playerPosition){
     for(auto enemy : groundUnit_){
-        enemy->shoot(projectiles_);
+        enemy->shoot(projectiles_, playerDirection, playerPosition);
     }
 }
