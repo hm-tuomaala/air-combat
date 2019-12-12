@@ -4,6 +4,13 @@ EnemyAir::EnemyAir(b2World *world, Projectiles *projectiles)
     : world_(world), projectiles_(projectiles){
 }
 
+EnemyAir::~EnemyAir(){
+    for (auto i : planes_){
+        delete i;
+    }
+    planes_.clear();
+}
+
 void EnemyAir::liftoff(sf::Texture& texture, const int difficulty){
     planes_.push_back(new Plane(world_, difficulty, texture));
 }
