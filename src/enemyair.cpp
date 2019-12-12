@@ -4,8 +4,8 @@ EnemyAir::EnemyAir(b2World *world, Projectiles *projectiles)
     : world_(world), projectiles_(projectiles){
 }
 
-void EnemyAir::liftoff(){
-    planes_.push_back(new Plane(world_, 2));
+void EnemyAir::liftoff(sf::Texture& texture){
+    planes_.push_back(new Plane(world_, 2, texture));
 }
 
 void EnemyAir::step(){
@@ -71,7 +71,7 @@ void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
             }
         }
         if ((dir - sep).Length() < 1){
-            if (dist > 30)
+            if (dist > 100)
                 plane->accelerate();
             plane->shoot(projectiles_);
         }

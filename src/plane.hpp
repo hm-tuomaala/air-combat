@@ -8,7 +8,7 @@
 
 class Plane : public Entity{
 public:
-    Plane(b2World *world, int difficulty);
+    Plane(b2World *world, int difficulty, sf::Texture& texture);
     ~Plane();
     const b2Vec2 getPosition() const;
     const float32 getDirection() const;

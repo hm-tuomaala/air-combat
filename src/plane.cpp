@@ -2,7 +2,7 @@
 
 int CEILING = 400;
 
-Plane::Plane(b2World *world, int difficulty){
+Plane::Plane(b2World *world, int difficulty, sf::Texture& texture){
     //difficulty 5 is player and affects the spawn point
     health_ = difficulty * 20;
     shotInterval_ = 100/difficulty;
@@ -33,14 +33,12 @@ Plane::Plane(b2World *world, int difficulty){
     }
 
     //create plane sprite
-    sf::Texture plane_texture;
-    //plane_texture.loadFromFile("../Images/fighter.png");
-    plane_texture.create(20, 10);
-    sprite_ = new sf::Sprite(plane_texture);
+
+    //plane_texture.create(20, 10);
+    sprite_ = new sf::Sprite(texture);
+    //sprite_->setScale(0.5f, 0.5f);
     sprite_->setOrigin(10.f, 5.f);
-    sprite_->setTexture(plane_texture);
-    //sprite->setScale(0.01f, 0.01f);
-    sprite_->setColor(sf::Color::Magenta);
+    //sprite_->setColor(sf::Color::Magenta);
 }
 
 Plane::~Plane(){
@@ -110,7 +108,7 @@ void Plane::startContact(bool ground){
     b2Vec2 linVel = body_->GetLinearVelocity();
     if(!ground || std::abs(linVel.y) > 50)
         health_ -= 10;
-    sprite_->setColor(sf::Color::Green);
+    //sprite_->setColor(sf::Color::Green);
 }
 
 const int Plane::shoot(Projectiles *projectiles){

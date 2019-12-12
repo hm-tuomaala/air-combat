@@ -8,7 +8,7 @@
 class Player{
 // class to store and control player specific stats
 public:
-    Player(b2World *world);
+    Player(b2World *world, sf::Texture& texture);
     ~Player();
     void respawn();
     void planePitch(const int x);
@@ -25,4 +25,5 @@ private:
     int lives_;
     Plane *plane_;
     b2World *world_;
+    sf::Texture& texture_;
 };

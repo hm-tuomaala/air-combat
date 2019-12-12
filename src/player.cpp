@@ -1,8 +1,8 @@
 #include "player.hpp"
 
-Player::Player(b2World *world)
-    : world_(world) {
-    plane_ = new Plane(world_, 5);
+Player::Player(b2World *world, sf::Texture& texture)
+    : world_(world), texture_(texture){
+    plane_ = new Plane(world_, 5, texture_);
     lives_ = 12;
 }
 
@@ -30,7 +30,7 @@ const int Player::planeShoot(Projectiles *projectiles){
 
 void Player::respawn(){
     delete plane_;
-    plane_ = new Plane(world_, 5);
+    plane_ = new Plane(world_, 5, texture_);
     lives_--;
 }
 
