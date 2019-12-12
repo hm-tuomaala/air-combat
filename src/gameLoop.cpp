@@ -13,13 +13,14 @@ gameLoop::~gameLoop(){
     delete player;
     delete enPlanes;
     delete fighterWorld;
+    delete enGround;
     delete menu;
 }
 
 void gameLoop::setup(){
     ending = 0;
     enemyAirToSpawn = 3;
-    enemyGroundToSpawn = 0;
+    enemyGroundToSpawn = 3;
     allSpawned = false;
 
     renderMenu = true;
@@ -29,6 +30,8 @@ void gameLoop::setup(){
     player = new Player(&fighterWorld->get2bWorld());
     bullets = new Projectiles(&fighterWorld->get2bWorld());
     enPlanes = new EnemyAir(&fighterWorld->get2bWorld(), bullets);
+    enGround = new enemyGround(&fighterWorld->get2bWorld(), bullets);
+
 
     Global g;
     path = g.GetPath();
@@ -117,11 +120,13 @@ int gameLoop::enemySpawn(){
         enPlanes->liftoff();
         enemyAirToSpawn --;
     }
-    if (enemyGroundToSpawn > 0);{
-        enemyGroundToSpawn --;
+    if (enemyGroundToSpawn > 0){
+        enGround->create();
+        enemyGroundToSpawn--;
     }
     if (enemyGroundToSpawn <= 0 && enemyAirToSpawn <= 0)
         allSpawned = true;
+ 
     spawnTimer = 0;
 }
 
@@ -132,9 +137,10 @@ void gameLoop::worldStep(){
     fighterWorld->worldStep();
     player->step();
     enPlanes->step();
+    enGround->step();
     bullets->projectileStep();
     bullets->remove();
-    if (enPlanes->removal() <= 0 && allSpawned){
+    if (enPlanes->removal() <= 0 && allSpawned && enGround->toRemove() <= 0){
         ending = 1;
     }
     else if(player->getLives() <=0){
@@ -164,6 +170,9 @@ void gameLoop::draw(){
     for (auto i : enPlanes->getSprites()){
         window.draw(i);
     }
+    for(auto i : enGround->getSprites()){
+        window.draw(i);
+    }
     for(auto i : bullets->getSprites()){
         window.draw(i);
     }
@@ -189,6 +198,7 @@ void gameLoop::endScreen(){
     delete player;
     delete enPlanes;
     delete fighterWorld;
+    delete enGround;
     setup();
 }
 

@@ -11,6 +11,7 @@
 #include "player.hpp"
 #include "global.hpp"
 #include "options.hpp"
+#include "enemyGround.hpp"
 
 class gameLoop{
 public:
@@ -35,6 +36,7 @@ private:
     Player *player;
     EnemyAir *enPlanes;
     Projectiles *bullets;
+    enemyGround *enGround;
 
     bool renderMenu;
     bool renderOptions;
