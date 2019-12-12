@@ -57,6 +57,7 @@ private:
     sf::Text livesText;
 
     sf::Texture planeTexture;
+    sf::Texture enemyTexture;
 
     int ending;
     int enemyAirToSpawn;

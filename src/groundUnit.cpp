@@ -1,15 +1,15 @@
 #include "groundUnit.hpp"
 
-groundUnit::groundUnit(b2World *world, int difficulty){
+groundUnit::groundUnit(b2World *world, int difficulty, sf::Texture& texture){
     //attributes based on difficulty chosen
     health = 20;
     shotInterval = 60/difficulty;
     delay = 0;
-
+    float xcoord = rand()%500 +(-250);
     //creation of body, setup of body physics
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(100.0f, 10.0f);
+    bodyDef.position.Set(xcoord, 15.0f);
     bodyDef.angle = 180;
 
     body_ = world->CreateBody(&bodyDef);
@@ -23,12 +23,13 @@ groundUnit::groundUnit(b2World *world, int difficulty){
 
 
     //creation of sprite
-    sf::Texture groundEnemyTexture;
-    groundEnemyTexture.create(20, 10);
-    groundUnitSprite = new sf::Sprite(groundEnemyTexture);
+    //sf::Texture groundEnemyTexture;
+    //groundEnemyTexture.create(20, 10);
+    groundUnitSprite = new sf::Sprite(texture);
     groundUnitSprite->setOrigin(10.0f, 5.0f);
-    groundUnitSprite->setTexture(groundEnemyTexture);
-    groundUnitSprite->setColor(sf::Color::Red);
+    groundUnitSprite->setScale(2.0f/15.0f, 2.0f/15.0f);
+    /*groundUnitSprite->setTexture(groundEnemyTexture);
+    groundUnitSprite->setColor(sf::Color::Red);*/
 
 }
 
@@ -59,21 +60,22 @@ sf::Sprite &groundUnit::getSprite(){
 
 void groundUnit::turn(const int x){
     if(x == 0){
-        body_->ApplyAngularImpulse(10, true);
+        body_->ApplyAngularImpulse(40, true);
     }
     else if(x == 1){
-        body_->ApplyAngularImpulse(-10, true);
+        body_->ApplyAngularImpulse(-40, true);
     }
 }
 
 void groundUnit::shoot(Projectiles *projectile){
     if(delay >= 7){
-        projectile->create(b2Vec2(getPosition().x, getPosition().y+10), getDirection());
+        projectile->create(b2Vec2(getPosition().x, getPosition().y+100), getDirection());
         delay = 0;
     }
 }
 
 void groundUnit::startContact(bool ground){
-    if(!ground)
+    b2Vec2 linVel = body_->GetLinearVelocity();
+    if(!ground || std::abs(linVel.y) > 50)
         health -= 10;
 }

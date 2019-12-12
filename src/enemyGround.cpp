@@ -1,7 +1,7 @@
 #include "enemyGround.hpp"
 
-enemyGround::enemyGround(b2World *world, Projectiles *projectile):
-world_(world), projectiles_(projectile){}
+enemyGround::enemyGround(b2World *world, Projectiles *projectile, sf::Texture& texture):
+world_(world), projectiles_(projectile), texture_(texture){}
 
 void enemyGround::step(){
     for(auto i : groundUnit_){
@@ -16,8 +16,8 @@ enemyGround::~enemyGround(){
     }
 }
 
-void enemyGround::create(){
-    groundUnit_.push_back(new groundUnit(world_, 1));
+void enemyGround::create(sf::Texture& texture){
+    groundUnit_.push_back(new groundUnit(world_, 1, texture_));
 }
 
 const int enemyGround::toRemove(){
@@ -44,18 +44,6 @@ const std::list<sf::Sprite> enemyGround::getSprites() const{
 
 void enemyGround::shotDirection(float32 playerDirection, b2Vec2 playerPosition){
     for(auto enemy : groundUnit_){
-        b2Vec2 separation = playerPosition - enemy->getPosition();
-        float32 distance = separation.Normalize();
-        b2Vec2 direction = b2Rot(enemy->getDirection()).GetXAxis();
-        if(direction.x >= 0){
-            enemy->turn(1);
-        }
-        else if(direction.y < 0){
-            enemy->turn(0);
-        }
-        if((direction - separation).Length() < 1){
-            enemy->shoot(projectiles_);
-        }
-
+        enemy->shoot(projectiles_);
     }
 }

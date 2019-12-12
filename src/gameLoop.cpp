@@ -34,12 +34,13 @@ void gameLoop::setup(){
     path = g.GetPath();
 
     planeTexture.loadFromFile(path + std::string("/Images/plane.png"));
+    enemyTexture.loadFromFile(path + std::string("/Images/AirCombatEnemy.png"));
 
     fighterWorld = new World();
     player = new Player(&fighterWorld->get2bWorld(), planeTexture);
     bullets = new Projectiles(&fighterWorld->get2bWorld());
     enPlanes = new EnemyAir(&fighterWorld->get2bWorld(), bullets);
-    enGround = new enemyGround(&fighterWorld->get2bWorld(), bullets);
+    enGround = new enemyGround(&fighterWorld->get2bWorld(), bullets, enemyTexture);
 
 
 
@@ -141,7 +142,7 @@ int gameLoop::enemySpawn(){
         enemyAirToSpawn --;
     }
     if (enemyGroundToSpawn > 0){
-        enGround->create();
+        enGround->create(enemyTexture);
         enemyGroundToSpawn--;
     }
     if (enemyGroundToSpawn <= 0 && enemyAirToSpawn <= 0)
@@ -158,9 +159,11 @@ void gameLoop::worldStep(){
     player->step();
     enPlanes->step();
     enGround->step();
+    int noEnemyPlanes = enPlanes->removal();
+    int noEnemyGroundUnits = enGround->toRemove();
     bullets->projectileStep();
     bullets->remove();
-    if (enPlanes->removal() <= 0 && allSpawned && enGround->toRemove() <= 0){
+    if (noEnemyPlanes <= 0 && allSpawned && noEnemyGroundUnits <= 0){
         ending = 1;
     }
     else if(player->getLives() <=0){
