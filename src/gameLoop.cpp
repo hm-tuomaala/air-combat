@@ -5,6 +5,10 @@ gameLoop::gameLoop(){
     window.setFramerateLimit(60);
     menu = new Menu(window.getSize().x, window.getSize().y);
     options = new Options(window.getSize().x, window.getSize().y);
+    win = new Win(window.getSize().x, window.getSize().y);
+    // lose = new Lose(window.getSize().x, window.getSize().y);
+    renderWin = false;
+    renderLose = false;
     setup();
 }
 
@@ -63,27 +67,29 @@ void gameLoop::startMenu(){
         if (event.type == sf::Event::Closed){
             window.close();
         } else if (event.type == sf::Event::KeyReleased) {
-            if (event.key.code == sf::Keyboard::Up && renderMenu && !renderOptions) {
+            if (event.key.code == sf::Keyboard::Up && renderMenu && !renderOptions && !renderWin) {
                 menu->MoveUp();
                 break;
-            } else if (event.key.code == sf::Keyboard::Down && renderMenu && !renderOptions) {
+            } else if (event.key.code == sf::Keyboard::Down && renderMenu && !renderOptions && !renderWin) {
                 menu->MoveDown();
                 break;
-            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 0 && !renderOptions) {
+            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 0 && !renderOptions && !renderWin) {
                 renderMenu = false;
-            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 2 && !renderOptions) {
+            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 2 && !renderOptions && !renderWin) {
                 window.close();
-            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 1 && !renderOptions) {
+            } else if (event.key.code == sf::Keyboard::Return && menu->GetIndex() == 1 && !renderOptions && !renderWin) {
                 renderOptions = true;
-            } else if (event.key.code == sf::Keyboard::Up && renderMenu && renderOptions) {
+            } else if (event.key.code == sf::Keyboard::Up && renderMenu && renderOptions && !renderWin) {
                 options->MoveUp();
-            } else if (event.key.code == sf::Keyboard::Down && renderMenu && renderOptions) {
+            } else if (event.key.code == sf::Keyboard::Down && renderMenu && renderOptions && !renderWin) {
                 options->MoveDown();
-            } else if (event.key.code == sf::Keyboard::Return && renderOptions) {
+            } else if (event.key.code == sf::Keyboard::Return && renderOptions && !renderWin) {
                 renderOptions = false;
                 // std::cout << options->GetDifficulty() << std::endl;
+            } else if (event.key.code == sf::Keyboard::Return && renderWin) {
+                renderWin = false;
             }
-        } else if (event.type == sf::Event::MouseMoved && renderMenu && !renderOptions) {
+        } else if (event.type == sf::Event::MouseMoved && renderMenu && !renderOptions && !renderWin) {
             if (event.mouseMove.x > 333 && event.mouseMove.x < 430 && event.mouseMove.y > 166 && event.mouseMove.y < 203) {
                 menu->HighlightIndex(0);
             } else if (event.mouseMove.x > 333 && event.mouseMove.x < 516 && event.mouseMove.y > 315 && event.mouseMove.y < 356) {
@@ -91,7 +97,7 @@ void gameLoop::startMenu(){
             } else if (event.mouseMove.x > 333 && event.mouseMove.x < 431 && event.mouseMove.y > 465 && event.mouseMove.y < 497) {
                 menu->HighlightIndex(2);
             }
-        } else if (event.type == sf::Event::MouseButtonPressed && renderMenu && !renderOptions) {
+        } else if (event.type == sf::Event::MouseButtonPressed && renderMenu && !renderOptions && !renderWin) {
             if (event.mouseButton.x > 333 && event.mouseButton.x < 430 && event.mouseButton.y > 166 && event.mouseButton.y < 203) {
                 renderMenu = false;
             } else if (event.mouseButton.x > 333 && event.mouseButton.x < 516 && event.mouseButton.y > 315 && event.mouseButton.y < 356) {
@@ -100,7 +106,7 @@ void gameLoop::startMenu(){
             } else if (event.mouseButton.x > 333 && event.mouseButton.x < 431 && event.mouseButton.y > 465 && event.mouseButton.y < 497) {
                 window.close();
             }
-        } else if (event.type == sf::Event::MouseButtonPressed && renderOptions) {
+        } else if (event.type == sf::Event::MouseButtonPressed && renderOptions && !renderWin) {
             //std::cout << event.mouseButton.x << ", " << event.mouseButton.y << std::endl;
             if (event.mouseButton.x > 55 && event.mouseButton.x < 111 && event.mouseButton.y < 571 && event.mouseButton.y > 539) {
                 renderOptions = false;
@@ -115,6 +121,9 @@ void gameLoop::startMenu(){
                 //renderOptions = false;
             }
             //std::cout << "dif now: " << options->GetDifficulty() << std::endl;
+        } else if (event.type == sf::Event::MouseButtonPressed && renderWin) {
+            std::cout << event.mouseButton.x << ", " << event.mouseButton.y << std::endl;
+            renderWin = false;
         }
     }
 }
@@ -191,9 +200,11 @@ void gameLoop::endScreen(){
     window.setView(view);
     if (ending == 1){
         //win
+        renderWin = true;
     }
     else{
         //loss
+        // renderLose = true;
     }
     delete bullets;
     delete player;
@@ -214,10 +225,14 @@ void gameLoop::loop(){
             endScreen();
         }
         else {
-            if (!renderOptions) {
+            if (!renderOptions && !renderWin && !renderLose) {
                 menu->Draw(window);
-            } else {
+            } else if (renderOptions && !renderWin && !renderLose) {
                 options->Draw(window);
+            } else if (renderWin) {
+                win->Draw(window);
+            } else if (renderLose) {
+                // lose->Draw(window);
             }
         }
         window.display();
