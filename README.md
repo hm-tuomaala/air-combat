@@ -14,8 +14,20 @@ use as follows:
 
   * `src/` -- Here are the C++ source files. You can have subfolders as needed.
 
-  * `README.md` -- This file. You should modify it to represent
-    your project.
+  * `README.md`
+  installation guidelines:
+  
+  prerequisites for gameplay: cmake, sfml, works and tested on debian linux 
+  to be able to play with wsl xserver display is needed, for example xming. With xserver following command must be executed:
+  export DISPLAY=:0 
 
-You may also add other new directories as needed, for example
-for testing tools.
+  install cmake and sfml if not previously installed, box2d files are included
+  sudo apt install cmake && sudo apt install libsfml-dev
+  move to air-combat-2019-1/src and execute following commands
+  mkdir build  
+  cd build  
+  cmake ..  
+  make  
+  ./fighter
+
+  Plane is controlled with W, A, D
