@@ -27,6 +27,7 @@ public:
     int enemySpawn();
     void loop();
 
+
 private:
     sf::RenderWindow window;
     sf::Event event;
@@ -61,6 +62,9 @@ private:
 
     sf::Texture planeTexture;
     sf::Texture enemyTexture;
+    sf::Texture backgroundTexture;
+    sf::Sprite spriteBackground;
+    
 
     int ending;
     int enemyAirToSpawn;

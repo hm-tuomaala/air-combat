@@ -3,6 +3,7 @@
 #include "contactListener.hpp"
 #include "Box2D/Box2D.h"
 
+
 class World{
 public:
     World();
@@ -13,10 +14,13 @@ public:
     const sf::RectangleShape getGround() const;
     const sf::RectangleShape getWallLeft() const;
     const sf::RectangleShape getWallRight() const;
+    
 
 protected:
     b2World* newWorld;
     sf::RectangleShape *ground;
     sf::RectangleShape *wallleft;
     sf::RectangleShape *wallright;
+    sf::Texture backgroundTexture;
+    sf::Sprite spriteBackground;
 };

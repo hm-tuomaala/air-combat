@@ -35,6 +35,8 @@ World::World(){
     wallright->setPosition(480.0f, 10.0f);
 
     
+
+    
     
 
     newWorld->SetContactListener( new ContactListener);

@@ -35,6 +35,10 @@ void gameLoop::setup(){
 
     planeTexture.loadFromFile(path + std::string("/Images/plane.png"));
     enemyTexture.loadFromFile(path + std::string("/Images/AirCombatEnemy.png"));
+    backgroundTexture.loadFromFile(path + std::string("/Images/Background.png")); 
+    spriteBackground.setTexture(backgroundTexture);
+    spriteBackground.setPosition(-480.0f,10.0f);
+    
 
     fighterWorld = new World();
     player = new Player(&fighterWorld->get2bWorld(), planeTexture);
@@ -187,6 +191,9 @@ void gameLoop::worldStep(){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
         player->planePitch(0);
     }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+        ending = 3;
+    }
     enPlanes->planeControl(player->getPosition(), player->getDirection());
 }
 
@@ -197,6 +204,7 @@ void gameLoop::draw(){
     window.draw(fighterWorld->getGround());
     window.draw(fighterWorld->getWallLeft());
     window.draw(fighterWorld->getWallRight());
+    window.draw(spriteBackground);
     window.draw(player->getSprite());
     for (auto i : enPlanes->getSprites()){
         window.draw(i);
