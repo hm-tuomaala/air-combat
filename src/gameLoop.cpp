@@ -179,6 +179,9 @@ void gameLoop::draw(){
 
 void gameLoop::endScreen(){
     //deletes old objects and rests game to menu for now
+    view.setCenter(400, 300);
+    view.setSize(800, 600);
+    window.setView(view);
     if (ending == 1){
         //win
     }
