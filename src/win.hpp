@@ -7,5 +7,6 @@ public:
     void Draw(sf::RenderWindow& window);
 private:
     sf::Text victory_;
+    sf::Text info_;
     sf::Font font_;
 };
