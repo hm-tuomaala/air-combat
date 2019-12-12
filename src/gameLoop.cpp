@@ -90,19 +90,19 @@ void gameLoop::startMenu(){
             }
         } else if (event.type == sf::Event::MouseButtonPressed && renderOptions) {
             std::cout << event.mouseButton.x << ", " << event.mouseButton.y << std::endl;
-            if (event.mouseButton.x > 55 && event.mouseButton.x < 122 && event.mouseButton.y < 553 && event.mouseButton.y > 535) {
+            if (event.mouseButton.x > 55 && event.mouseButton.x < 111 && event.mouseButton.y < 571 && event.mouseButton.y > 539) {
                 renderOptions = false;
             } else if (event.mouseButton.x > 335 && event.mouseButton.x < 422 && event.mouseButton.y < 284 && event.mouseButton.y > 252) {
                 options->ChangeDifficulty(0);
-                renderOptions = false;
+                //renderOptions = false;
             } else if (event.mouseButton.x > 335 && event.mouseButton.x < 479 && event.mouseButton.y < 398 && event.mouseButton.y > 373) {
                 options->ChangeDifficulty(1);
-                renderOptions = false;
+                //renderOptions = false;
             } else if (event.mouseButton.x > 335 && event.mouseButton.x < 422 && event.mouseButton.y < 517 && event.mouseButton.y > 492) {
                 options->ChangeDifficulty(2);
-                renderOptions = false;
+                //renderOptions = false;
             }
-            std::cout << "dif now: " << options->GetDifficulty() << std::endl;
+            //std::cout << "dif now: " << options->GetDifficulty() << std::endl;
         }
     }
 }

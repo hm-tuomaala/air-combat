@@ -9,6 +9,8 @@ public:
     // void MoveUp();
     // void MoveDown();
     //
+    void HighlightCurDif(int current);
+
     void ChangeDifficulty(int newDif);
     int GetDifficulty();
 

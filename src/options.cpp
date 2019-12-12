@@ -28,9 +28,9 @@ Options::Options(float width, float height){
     options_[2].setCharacterSize(35);
 
     back_.setFont(font_);
-    back_.setString("Back");
+    back_.setString("OK");
     back_.setPosition(sf::Vector2f(55, height / 4 * 3.5));
-    back_.setCharacterSize(25);
+    back_.setCharacterSize(45);
 
     info_.setFont(font_);
     info_.setString("Select difficulty:");
@@ -39,6 +39,8 @@ Options::Options(float width, float height){
 
     // current difficulty is easy
     curDif_ = 0;
+
+    HighlightCurDif(curDif_);
 }
 
 Options::~Options(){
@@ -55,8 +57,16 @@ void Options::Draw(sf::RenderWindow& window){
 
 void Options::ChangeDifficulty(int newDif){
     this->curDif_ = newDif;
+    HighlightCurDif(this->curDif_);
 }
 
 int Options::GetDifficulty(){
     return this->curDif_;
+}
+
+void Options::HighlightCurDif(int current){
+    options_[0].setFillColor(sf::Color::White);
+    options_[1].setFillColor(sf::Color::White);
+    options_[2].setFillColor(sf::Color::White);
+    options_[current].setFillColor(sf::Color::Red);
 }
