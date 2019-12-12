@@ -41,7 +41,7 @@ World::World(){
 }
 
 World::~World(){
-
+    delete newWorld;
 }
 
 b2World &World::get2bWorld(){

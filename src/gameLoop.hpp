@@ -59,6 +59,8 @@ private:
     sf::Text hpText;
     sf::Text livesText;
 
+    sf::Texture planeTexture;
+
     int ending;
     int enemyAirToSpawn;
     int enemyGroundToSpawn;

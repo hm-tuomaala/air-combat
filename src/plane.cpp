@@ -2,7 +2,7 @@
 
 int CEILING = 400;
 
-Plane::Plane(b2World *world, int difficulty){
+Plane::Plane(b2World *world, int difficulty, sf::Texture& texture){
     //difficulty 5 is player and affects the spawn point
     health_ = difficulty * 20;
     shotInterval_ = 100/difficulty;
@@ -13,11 +13,11 @@ Plane::Plane(b2World *world, int difficulty){
     bodyDef.type = b2_dynamicBody;
     if (difficulty == 5){
         bodyDef.position.Set(-300.0f, 10.0f);
-        ammo_ = 200;
+        ammo_ = 50;
     }
     else {
         bodyDef.position.Set(300.0f, 10.0f);
-        ammo_ = 100;
+        ammo_ = 1000;
     }
     body_ = world->CreateBody(&bodyDef);
     b2PolygonShape dynamicBox;
@@ -33,14 +33,12 @@ Plane::Plane(b2World *world, int difficulty){
     }
 
     //create plane sprite
-    sf::Texture plane_texture;
-    //plane_texture.loadFromFile("../Images/fighter.png");
-    plane_texture.create(20, 10);
-    sprite_ = new sf::Sprite(plane_texture);
+
+    //plane_texture.create(20, 10);
+    sprite_ = new sf::Sprite(texture);
+    //sprite_->setScale(0.5f, 0.5f);
     sprite_->setOrigin(10.f, 5.f);
-    sprite_->setTexture(plane_texture);
-    //sprite->setScale(0.01f, 0.01f);
-    sprite_->setColor(sf::Color::Magenta);
+    //sprite_->setColor(sf::Color::Magenta);
 }
 
 Plane::~Plane(){
@@ -110,12 +108,14 @@ void Plane::startContact(bool ground){
     b2Vec2 linVel = body_->GetLinearVelocity();
     if(!ground || std::abs(linVel.y) > 50)
         health_ -= 10;
-    sprite_->setColor(sf::Color::Green);
+    //sprite_->setColor(sf::Color::Green);
 }
 
-void Plane::shoot(Projectiles *projectiles){
-    if (shotDelay_ >= shotInterval_){ 
+const int Plane::shoot(Projectiles *projectiles){
+    if (shotDelay_ >= shotInterval_ && ammo_ >= 0){ 
         projectiles->create(getPosition(), getDirection());
         shotDelay_ = 0;
+        ammo_--;
     }
+    return ammo_;
 }

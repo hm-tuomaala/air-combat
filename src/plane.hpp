@@ -8,7 +8,7 @@
 
 class Plane : public Entity{
 public:
-    Plane(b2World *world, int difficulty);
+    Plane(b2World *world, int difficulty, sf::Texture& texture);
     ~Plane();
     const b2Vec2 getPosition() const;
     const float32 getDirection() const;
@@ -19,7 +19,7 @@ public:
     void pitch(const int x);
     void startContact(bool ground);
     int getEntityType() {return 1;}
-    void shoot(Projectiles *projectiles);
+    const int shoot(Projectiles *projectiles);
 private:
     b2Body *body_;
     sf::Sprite *sprite_;

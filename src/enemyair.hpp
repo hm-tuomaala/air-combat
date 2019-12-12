@@ -10,7 +10,7 @@ class EnemyAir{
 /*Stores and controls enemy air units*/
 public:
     EnemyAir(b2World *world, Projectiles *projectiles);
-    void liftoff();
+    void liftoff(sf::Texture& texture);
     void planeControl(b2Vec2 pPos, float32 pDir);
     void step();
     const std::list<sf::Sprite> getSprites() const;

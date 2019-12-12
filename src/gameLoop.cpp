@@ -30,15 +30,18 @@ void gameLoop::setup(){
     renderMenu = true;
     renderOptions = false;
 
+    Global g;
+    path = g.GetPath();
+
+    planeTexture.loadFromFile(path + std::string("/Images/plane.png"));
+
     fighterWorld = new World();
-    player = new Player(&fighterWorld->get2bWorld());
+    player = new Player(&fighterWorld->get2bWorld(), planeTexture);
     bullets = new Projectiles(&fighterWorld->get2bWorld());
     enPlanes = new EnemyAir(&fighterWorld->get2bWorld(), bullets);
     enGround = new enemyGround(&fighterWorld->get2bWorld(), bullets);
 
 
-    Global g;
-    path = g.GetPath();
 
     f.loadFromFile(path + std::string("/Images/arial.ttf"));
 
@@ -61,6 +64,7 @@ void gameLoop::setup(){
     livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
     livesText.setCharacterSize(20);
     livesText.setScale(1.0, -1.0);
+
 
     loop();
 }
@@ -133,7 +137,7 @@ void gameLoop::startMenu(){
 
 int gameLoop::enemySpawn(){
     if (enemyAirToSpawn > 0){
-        enPlanes->liftoff();
+        enPlanes->liftoff(planeTexture);
         enemyAirToSpawn --;
     }
     if (enemyGroundToSpawn > 0){

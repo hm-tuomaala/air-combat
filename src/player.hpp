@@ -8,12 +8,12 @@
 class Player{
 // class to store and control player specific stats
 public:
-    Player(b2World *world);
+    Player(b2World *world, sf::Texture& texture);
     ~Player();
     void respawn();
     void planePitch(const int x);
     void planeAccelerate();
-    void planeShoot(Projectiles *projectiles);
+    const int planeShoot(Projectiles *projectiles);
     void step();
     const sf::Sprite getSprite() const;
     const b2Vec2 getPosition() const;
@@ -25,4 +25,5 @@ private:
     int lives_;
     Plane *plane_;
     b2World *world_;
+    sf::Texture& texture_;
 };
