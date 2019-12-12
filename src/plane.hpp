@@ -14,6 +14,7 @@ public:
     const float32 getDirection() const;
     const sf::Sprite &getSprite() const;
     const int getHealth() const;
+    const int getAmmo() const;
     const int planeStep();
     void accelerate();
     void pitch(const int x);

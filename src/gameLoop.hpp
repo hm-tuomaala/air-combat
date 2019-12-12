@@ -54,10 +54,13 @@ private:
     int hudXPos;
     int hudYPos;
 
+
     std::string hp;
     std::string lives;
+    std::string ammos;
     sf::Text hpText;
     sf::Text livesText;
+    sf::Text ammosText;
 
     sf::Texture planeTexture;
     sf::Texture enemyTexture;

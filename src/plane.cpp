@@ -92,6 +92,10 @@ const int Plane::getHealth() const{
     return health_;
 }
 
+const int Plane::getAmmo() const{
+    return ammo_;
+}
+
 void Plane::accelerate(){
     b2Vec2 dir = b2Rot(body_->GetAngle()).GetXAxis();
     dir *= 200;
