@@ -53,3 +53,7 @@ const int Player::getHp() const{
 const int Player::getLives() const{
     return lives_;
 }
+
+const int Player::getAmmo() const{
+    return plane_->getAmmo();
+}

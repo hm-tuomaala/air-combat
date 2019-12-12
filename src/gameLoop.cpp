@@ -50,10 +50,11 @@ void gameLoop::setup(){
 
     hpText.setFont(f);
     livesText.setFont(f);
+    ammosText.setFont(f);
 
     hp = std::to_string(player->getHp());
     lives = std::to_string(player->getLives());
-
+    ammos = std::to_string(player->getAmmo());
 
     hpText.setString("HP: " + hp);
     hpText.setPosition(view.getCenter().x - hudXPos, view.getCenter().y - hudYPos);
@@ -64,6 +65,11 @@ void gameLoop::setup(){
     livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
     livesText.setCharacterSize(20);
     livesText.setScale(1.0, -1.0);
+
+    ammosText.setString("Ammos: " + ammos);
+    ammosText.setPosition(view.getCenter().x - hudXPos + 200, view.getCenter().y - hudYPos);
+    ammosText.setCharacterSize(20);
+    ammosText.setScale(1.0, -1.0);
 
 
     loop();
@@ -200,12 +206,16 @@ void gameLoop::draw(){
     }
     hp = std::to_string(player->getHp());
     lives = std::to_string(player->getLives());
+    ammos = std::to_string(player->getAmmo());
     hpText.setString("HP: " + hp);
     hpText.setPosition(view.getCenter().x - hudXPos, view.getCenter().y - hudYPos);
     livesText.setString("Lives: " + lives);
     livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
+    ammosText.setString("Ammos: " + ammos);
+    ammosText.setPosition(view.getCenter().x - hudXPos + 200, view.getCenter().y - hudYPos);
     window.draw(hpText);
     window.draw(livesText);
+    window.draw(ammosText);
 }
 
 void gameLoop::endScreen(){

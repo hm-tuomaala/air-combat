@@ -20,6 +20,7 @@ public:
     const float32 getDirection() const;
     const int getHp() const;
     const int getLives() const;
+    const int getAmmo() const;
 
 private:
     int lives_;
