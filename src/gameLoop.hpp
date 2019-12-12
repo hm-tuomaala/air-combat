@@ -13,7 +13,7 @@
 #include "options.hpp"
 #include "enemyGround.hpp"
 #include "win.hpp"
-// #include "lose.hpp"
+#include "lose.hpp"
 
 class gameLoop{
 public:
@@ -41,6 +41,7 @@ private:
     Projectiles *bullets;
     enemyGround *enGround;
     Win *win;
+    Lose *lose;
 
     bool difficultySetup;
 
