@@ -167,6 +167,8 @@ void gameLoop::draw(){
     view.setSize(800, -600);
     window.setView(view);
     window.draw(fighterWorld->getGround());
+    window.draw(fighterWorld->getWallLeft());
+    window.draw(fighterWorld->getWallRight());
     window.draw(player->getSprite());
     for (auto i : enPlanes->getSprites()){
         window.draw(i);
