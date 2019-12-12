@@ -9,6 +9,7 @@ gameLoop::gameLoop(){
     // lose = new Lose(window.getSize().x, window.getSize().y);
     renderWin = false;
     renderLose = false;
+    difficultySetup = false;
     setup();
 }
 
@@ -23,8 +24,6 @@ gameLoop::~gameLoop(){
 
 void gameLoop::setup(){
     ending = 0;
-    enemyAirToSpawn = 3;
-    enemyGroundToSpawn = 3;
     allSpawned = false;
 
     renderMenu = true;
@@ -51,10 +50,11 @@ void gameLoop::setup(){
 
     hpText.setFont(f);
     livesText.setFont(f);
+    ammosText.setFont(f);
 
     hp = std::to_string(player->getHp());
     lives = std::to_string(player->getLives());
-
+    ammos = std::to_string(player->getAmmo());
 
     hpText.setString("HP: " + hp);
     hpText.setPosition(view.getCenter().x - hudXPos, view.getCenter().y - hudYPos);
@@ -65,6 +65,11 @@ void gameLoop::setup(){
     livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
     livesText.setCharacterSize(20);
     livesText.setScale(1.0, -1.0);
+
+    ammosText.setString("Ammos: " + ammos);
+    ammosText.setPosition(view.getCenter().x - hudXPos + 200, view.getCenter().y - hudYPos);
+    ammosText.setCharacterSize(20);
+    ammosText.setScale(1.0, -1.0);
 
 
     loop();
@@ -138,7 +143,7 @@ void gameLoop::startMenu(){
 
 int gameLoop::enemySpawn(){
     if (enemyAirToSpawn > 0){
-        enPlanes->liftoff(planeTexture);
+        enPlanes->liftoff(planeTexture, options->GetDifficulty() + 1);
         enemyAirToSpawn --;
     }
     if (enemyGroundToSpawn > 0){
@@ -204,16 +209,21 @@ void gameLoop::draw(){
     }
     hp = std::to_string(player->getHp());
     lives = std::to_string(player->getLives());
+    ammos = std::to_string(player->getAmmo());
     hpText.setString("HP: " + hp);
     hpText.setPosition(view.getCenter().x - hudXPos, view.getCenter().y - hudYPos);
     livesText.setString("Lives: " + lives);
     livesText.setPosition(view.getCenter().x - hudXPos + 100, view.getCenter().y - hudYPos);
+    ammosText.setString("Ammos: " + ammos);
+    ammosText.setPosition(view.getCenter().x - hudXPos + 200, view.getCenter().y - hudYPos);
     window.draw(hpText);
     window.draw(livesText);
+    window.draw(ammosText);
 }
 
 void gameLoop::endScreen(){
     //deletes old objects and rests game to menu for now
+    difficultySetup = false;
     view.setCenter(400, 300);
     view.setSize(800, 600);
     window.setView(view);
@@ -233,10 +243,21 @@ void gameLoop::endScreen(){
     setup();
 }
 
+void gameLoop::difficultySpawns(){
+    int diff = options->GetDifficulty();
+    enemyAirToSpawn = diff + 3;
+    enemyGroundToSpawn = (diff + 2) * 2;
+    difficultySetup = true;
+}
+
 void gameLoop::loop(){
     while(window.isOpen()){
         startMenu();
         window.clear(sf::Color::Blue);
+        if (!renderMenu && !renderOptions && !difficultySetup){
+            difficultySpawns();
+        }
+            
         if (!renderMenu && ending == 0){
             worldStep();
             draw();

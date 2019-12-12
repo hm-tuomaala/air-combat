@@ -26,6 +26,7 @@ public:
     void endScreen();
     int enemySpawn();
     void loop();
+    void difficultySpawns();
 
 private:
     sf::RenderWindow window;
@@ -41,6 +42,8 @@ private:
     enemyGround *enGround;
     Win *win;
 
+    bool difficultySetup;
+
     bool renderMenu;
     bool renderOptions;
     bool renderWin;
@@ -51,10 +54,13 @@ private:
     int hudXPos;
     int hudYPos;
 
+
     std::string hp;
     std::string lives;
+    std::string ammos;
     sf::Text hpText;
     sf::Text livesText;
+    sf::Text ammosText;
 
     sf::Texture planeTexture;
     sf::Texture enemyTexture;

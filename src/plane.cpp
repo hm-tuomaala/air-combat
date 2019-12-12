@@ -66,7 +66,12 @@ const int Plane::planeStep(){
     //update sprite position
     sprite_->setPosition(position.x, position.y);
     sprite_->setRotation(angle * 180.f / 3.14f);
-
+    if (b2Rot(body_->GetAngle()).GetXAxis().x > 0){
+        sprite_->setScale(1, -1);
+    }
+    else{ 
+        sprite_->setScale(1, 1);
+    }
     //returns the health of the plane
     return health_;
 }
@@ -85,6 +90,10 @@ const sf::Sprite &Plane::getSprite() const{
 
 const int Plane::getHealth() const{
     return health_;
+}
+
+const int Plane::getAmmo() const{
+    return ammo_;
 }
 
 void Plane::accelerate(){
