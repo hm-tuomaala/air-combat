@@ -1,6 +1,7 @@
 #include "Box2D/Box2D.h"
 #include "plane.hpp"
 #include "bullet.hpp"
+#include "groundUnit.hpp"
 
 class ContactListener : public b2ContactListener{
 /*modification of BeginContact to handle collision damage*/

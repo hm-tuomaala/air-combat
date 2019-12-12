@@ -38,11 +38,8 @@ private:
     Player *player;
     EnemyAir *enPlanes;
     Projectiles *bullets;
-<<<<<<< HEAD
     enemyGround *enGround;
-=======
     Win *win;
->>>>>>> 50924b28407581a31a6c252e13d5e772557a766e
 
     bool renderMenu;
     bool renderOptions;
