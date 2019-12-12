@@ -20,6 +20,7 @@ public:
     void draw();
     void setup();
     void endScreen();
+    int enemySpawn();
     void loop();
 
 private:
@@ -46,4 +47,8 @@ private:
     sf::Text livesText;
 
     int ending;
+    int enemyAirToSpawn;
+    int enemyGroundToSpawn;
+    int spawnTimer;
+    bool allSpawned;
 };

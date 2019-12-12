@@ -63,7 +63,7 @@ sf::Sprite &Bullet::getSprite(){
     return *bullet_sprite;
 }
 
-void Bullet::startContact(){
+void Bullet::startContact(bool ground){
     bulletContact = true;
 }
 

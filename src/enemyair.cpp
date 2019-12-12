@@ -70,8 +70,8 @@ void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
                 plane->pitch(1);
             }
         }
-        if ((dir - sep).Length() < 0.2){
-            if (dist > 100)
+        if ((dir - sep).Length() < 1){
+            if (dist > 30)
                 plane->accelerate();
             plane->shoot(projectiles_);
         }

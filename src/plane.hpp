@@ -26,4 +26,5 @@ private:
     int health_;
     int shotInterval_;
     int shotDelay_;
+    int ammo_;
 };

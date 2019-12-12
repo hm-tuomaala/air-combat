@@ -3,18 +3,22 @@
 int CEILING = 400;
 
 Plane::Plane(b2World *world, int difficulty){
-    //difficulty 5 is player
+    //difficulty 5 is player and affects the spawn point
     health_ = difficulty * 20;
-    shotInterval_ = 50/difficulty;
+    shotInterval_ = 100/difficulty;
     shotDelay_ = 0;
 
     //creation and setup of the physics body of the plane
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    if (difficulty == 5)
-        bodyDef.position.Set(-200.0f, 100.0f);
-    else 
-        bodyDef.position.Set(200.0f, 100.0f);
+    if (difficulty == 5){
+        bodyDef.position.Set(-300.0f, 10.0f);
+        ammo_ = 200;
+    }
+    else {
+        bodyDef.position.Set(300.0f, 10.0f);
+        ammo_ = 100;
+    }
     body_ = world->CreateBody(&bodyDef);
     b2PolygonShape dynamicBox;
     dynamicBox.SetAsBox(10.0f, 5.0f);
@@ -24,6 +28,9 @@ Plane::Plane(b2World *world, int difficulty){
     body_->CreateFixture(&fixtureDef);
     body_->SetAngularDamping(2.0f);
     body_->SetUserData(this);
+    if (difficulty != 5){
+        body_->SetTransform(body_->GetPosition(), 3.14f);
+    }
 
     //create plane sprite
     sf::Texture plane_texture;
@@ -107,7 +114,7 @@ void Plane::startContact(bool ground){
 }
 
 void Plane::shoot(Projectiles *projectiles){
-    if (shotDelay_ >= 10){ 
+    if (shotDelay_ >= shotInterval_){ 
         projectiles->create(getPosition(), getDirection());
         shotDelay_ = 0;
     }

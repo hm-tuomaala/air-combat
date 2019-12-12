@@ -8,20 +8,25 @@ gameLoop::gameLoop(){
 }
 
 gameLoop::~gameLoop(){
-
+    delete bullets;
+    delete player;
+    delete enPlanes;
+    delete fighterWorld;
+    delete menu;
 }
 
 void gameLoop::setup(){
     ending = 0;
+    enemyAirToSpawn = 3;
+    enemyGroundToSpawn = 0;
+    allSpawned = false;
+
     renderMenu = true;
 
     fighterWorld = new World();
     player = new Player(&fighterWorld->get2bWorld());
     bullets = new Projectiles(&fighterWorld->get2bWorld());
     enPlanes = new EnemyAir(&fighterWorld->get2bWorld(), bullets);
-    enPlanes->liftoff();
-    enPlanes->liftoff();
-    enPlanes->liftoff();
 
     Global g;
     path = g.GetPath();
@@ -87,13 +92,29 @@ void gameLoop::startMenu(){
     }
 }
 
+int gameLoop::enemySpawn(){
+    if (enemyAirToSpawn > 0){
+        enPlanes->liftoff();
+        enemyAirToSpawn --;
+    }
+    if (enemyGroundToSpawn > 0);{
+        enemyGroundToSpawn --;
+    }
+    if (enemyGroundToSpawn <= 0 && enemyAirToSpawn <= 0)
+        allSpawned = true;
+    spawnTimer = 0;
+}
+
 void gameLoop::worldStep(){
+    if (spawnTimer > 120)
+        enemySpawn();
+    spawnTimer ++;
     fighterWorld->worldStep();
     player->step();
     enPlanes->step();
     bullets->projectileStep();
     bullets->remove();
-    if (enPlanes->removal() <= 0){
+    if (enPlanes->removal() <= 0 && allSpawned){
         ending = 1;
     }
     else if(player->getLives() <=0){
