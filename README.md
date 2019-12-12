@@ -35,4 +35,4 @@ use as follows:
   make  
   ./fighter
 
-  Plane is controlled with W, A, D
+  Plane is controlled with W, A, D, shoot with space
