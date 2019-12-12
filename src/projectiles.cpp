@@ -6,7 +6,7 @@ Projectiles::Projectiles(b2World *world){
 
 Projectiles::~Projectiles(){
     for (auto it : bullets){
-        delete(it);
+        delete it;
     }
 }
 

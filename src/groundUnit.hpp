@@ -9,14 +9,14 @@
 
 class groundUnit : public Entity{
 public:
-    groundUnit(b2World *world, int difficulty, sf::Texture& texture);
+    groundUnit(b2World *world, sf::Texture& texture);
     ~groundUnit();
     b2Vec2 getPosition();
     float32 getDirection();
     int groundUnitStep();
     sf::Sprite &getSprite();
     void startContact(bool ground);
-    void shoot(Projectiles *projectile);
+    void shoot(Projectiles *projectile, float32 playerDirection, b2Vec2 playerPosition);
     void turn(const int x);
     int getEntityType(){return 2;}
 

@@ -1,15 +1,16 @@
 #include "groundUnit.hpp"
 
-groundUnit::groundUnit(b2World *world, int difficulty, sf::Texture& texture){
+groundUnit::groundUnit(b2World *world, sf::Texture& texture){
     //attributes based on difficulty chosen
     health = 20;
-    shotInterval = 60/difficulty;
     delay = 0;
+    //set to spawn at random x-coordinates
     float xcoord = rand()%500 +(-250);
+
     //creation of body, setup of body physics
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
-    bodyDef.position.Set(xcoord, 15.0f);
+    bodyDef.position.Set(xcoord, 20.0f);
     bodyDef.angle = 180;
 
     body_ = world->CreateBody(&bodyDef);
@@ -17,19 +18,15 @@ groundUnit::groundUnit(b2World *world, int difficulty, sf::Texture& texture){
     dynamicBox.SetAsBox(10.0f, 5.0f);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 0.02f;
+    fixtureDef.density = 0.50f;
     body_->CreateFixture(&fixtureDef);
     body_->SetUserData(this);
 
 
     //creation of sprite
-    //sf::Texture groundEnemyTexture;
-    //groundEnemyTexture.create(20, 10);
     groundUnitSprite = new sf::Sprite(texture);
     groundUnitSprite->setOrigin(10.0f, 5.0f);
     groundUnitSprite->setScale(2.0f/15.0f, 2.0f/15.0f);
-    /*groundUnitSprite->setTexture(groundEnemyTexture);
-    groundUnitSprite->setColor(sf::Color::Red);*/
 
 }
 
@@ -60,16 +57,21 @@ sf::Sprite &groundUnit::getSprite(){
 
 void groundUnit::turn(const int x){
     if(x == 0){
-        body_->ApplyAngularImpulse(40, true);
+        body_->ApplyAngularImpulse(1000, true);
     }
     else if(x == 1){
-        body_->ApplyAngularImpulse(-40, true);
+        body_->ApplyAngularImpulse(-1000, true);
     }
 }
 
-void groundUnit::shoot(Projectiles *projectile){
-    if(delay >= 7){
-        projectile->create(b2Vec2(getPosition().x, getPosition().y+100), getDirection());
+void groundUnit::shoot(Projectiles *projectile, float32 playerDirection, b2Vec2 playerPosition){
+    float32 angle;
+    if(playerPosition.x-body_->GetPosition().x >= 0)
+        angle = atan((playerPosition.y- body_->GetPosition().y) /(playerPosition.x - body_->GetPosition().x));
+    else
+        angle = 3.14 + atan((playerPosition.y- body_->GetPosition().y) /(playerPosition.x - body_->GetPosition().x));
+    if(delay >= 30){
+        projectile->create(getPosition(), angle);
         delay = 0;
     }
 }
