@@ -10,6 +10,7 @@
 #include "projectiles.hpp"
 #include "player.hpp"
 #include "global.hpp"
+#include "options.hpp"
 
 class gameLoop{
 public:
@@ -28,12 +29,14 @@ private:
     sf::View view;
 
     Menu *menu;
+    Options *options;
     World *fighterWorld;
     Player *player;
     EnemyAir *enPlanes;
     Projectiles *bullets;
 
     bool renderMenu;
+    bool renderOptions;
     std::string path;
     sf::Font f;
 

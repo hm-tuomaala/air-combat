@@ -76,3 +76,11 @@ sf::Text Menu::GetText(int index) {
 int Menu::GetIndex(){
     return selectIndex;
 }
+
+int Menu::GetDifficulty(){
+    return this->difficulty_;
+}
+
+void Menu::ChangeDifficulty(int newDifficulty){
+    this->difficulty_ = newDifficulty;
+}
