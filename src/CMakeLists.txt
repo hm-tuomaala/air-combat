@@ -27,6 +27,7 @@ add_subdirectory(Images)
 set(EXECUTABLE_NAME "fighter")
 
 add_executable(${EXECUTABLE_NAME} main.cpp world.hpp world.cpp plane.hpp plane.cpp enemyair.hpp enemyair.cpp bullet.hpp bullet.cpp projectiles.hpp projectiles.cpp menu.cpp player.hpp player.cpp contactListener.hpp global.hpp global.cpp gameLoop.hpp gameLoop.cpp options.hpp options.cpp groundUnit.cpp groundUnit.hpp enemyGround.hpp enemyGround.cpp)
+add_executable(${EXECUTABLE_NAME} main.cpp world.hpp world.cpp plane.hpp plane.cpp enemyair.hpp enemyair.cpp bullet.hpp bullet.cpp projectiles.hpp projectiles.cpp menu.cpp player.hpp player.cpp contactListener.hpp global.hpp global.cpp gameLoop.hpp gameLoop.cpp options.hpp options.cpp win.hpp win.cpp)
 
 target_link_libraries (${EXECUTABLE_NAME} Box2D)
 
