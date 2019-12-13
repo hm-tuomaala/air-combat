@@ -23,7 +23,7 @@ public:
     const int shoot(Projectiles *projectiles);
 private:
     b2Body *body_;
-    sf::Sprite *sprite_;
+    sf::Sprite sprite_;
     int health_;
     int shotInterval_;
     int shotDelay_;

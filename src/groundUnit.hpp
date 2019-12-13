@@ -23,7 +23,7 @@ public:
     
 private:
     b2Body *body_;
-    sf::Sprite *groundUnitSprite;
+    sf::Sprite groundUnitSprite;
     int shotInterval;
     int delay;
     int health;

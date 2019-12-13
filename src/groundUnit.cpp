@@ -24,9 +24,9 @@ groundUnit::groundUnit(b2World *world, sf::Texture& texture){
 
 
     //creation of sprite
-    groundUnitSprite = new sf::Sprite(texture);
-    groundUnitSprite->setOrigin(10.0f, 5.0f);
-    groundUnitSprite->setScale(2.0f/15.0f, 2.0f/15.0f);
+    groundUnitSprite = sf::Sprite(texture);
+    groundUnitSprite.setOrigin(10.0f, 5.0f);
+    groundUnitSprite.setScale(2.0f/15.0f, 2.0f/15.0f);
 
 }
 
@@ -46,13 +46,13 @@ int groundUnit::groundUnitStep(){
     float32 angle = body_->GetAngle();
     delay++;
     //update sprite position
-    groundUnitSprite->setPosition(position.x, position.y);
-    groundUnitSprite->setRotation(angle * 180.f / 3.14f);
+    groundUnitSprite.setPosition(position.x, position.y);
+    groundUnitSprite.setRotation(angle * 180.f / 3.14f);
     return health;
 }
 
 sf::Sprite &groundUnit::getSprite(){
-    return *groundUnitSprite;
+    return groundUnitSprite;
 }
 
 void groundUnit::turn(const int x){

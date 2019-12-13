@@ -10,9 +10,9 @@ World::World(){
     b2PolygonShape groundAsBox;
     groundAsBox.SetAsBox(500.0f, 10.0f);
     groundBody->CreateFixture(&groundAsBox, 0.0f);
-    ground = new sf::RectangleShape(sf::Vector2f(1000,20));
-    ground->setFillColor(sf::Color::Black);
-    ground->setPosition(-500.0f, -10.0f);
+    ground = sf::RectangleShape(sf::Vector2f(1000,20));
+    ground.setFillColor(sf::Color::Black);
+    ground.setPosition(-500.0f, -10.0f);
 
     b2BodyDef bodyDef;
     bodyDef.position.Set(-490.0f, 260.0f);
@@ -20,9 +20,9 @@ World::World(){
     b2PolygonShape dynamicBox;
     dynamicBox.SetAsBox(10.0f, 250.0f);
     body->CreateFixture(&dynamicBox, 0.0f);
-    wallleft = new sf::RectangleShape(sf::Vector2f(20,500));
-    wallleft->setFillColor(sf::Color::Black);
-    wallleft->setPosition(-500.0f, 10.0f);
+    wallleft = sf::RectangleShape(sf::Vector2f(20,500));
+    wallleft.setFillColor(sf::Color::Black);
+    wallleft.setPosition(-500.0f, 10.0f);
 
     b2BodyDef bodyDef1;
     bodyDef1.position.Set(490.0f, 260.0f);
@@ -30,16 +30,12 @@ World::World(){
     b2PolygonShape dynamicBox1;
     dynamicBox1.SetAsBox(10.0f, 250.0f);
     body1->CreateFixture(&dynamicBox1, 0.0f);
-    wallright = new sf::RectangleShape(sf::Vector2f(20,500));
-    wallright->setFillColor(sf::Color::Black);
-    wallright->setPosition(480.0f, 10.0f);
+    wallright = sf::RectangleShape(sf::Vector2f(20,500));
+    wallright.setFillColor(sf::Color::Black);
+    wallright.setPosition(480.0f, 10.0f);
 
-    
-
-    
-    
-
-    newWorld->SetContactListener( new ContactListener);
+    newContactListener = ContactListener();
+    newWorld->SetContactListener(&newContactListener);
 }
 
 World::~World(){
@@ -50,16 +46,16 @@ b2World &World::get2bWorld(){
     return *newWorld;
 }
 
-const sf::RectangleShape World::getGround() const{
-    return *ground;
+const sf::RectangleShape& World::getGround() const{
+    return ground;
 }
 
-const sf::RectangleShape World::getWallLeft() const{
-    return *wallleft;
+const sf::RectangleShape& World::getWallLeft() const{
+    return wallleft;
 }
 
-const sf::RectangleShape World::getWallRight() const{
-    return *wallright;
+const sf::RectangleShape& World::getWallRight() const{
+    return wallright;
 }
 
 void World::worldStep(){

@@ -34,6 +34,7 @@ Bullet::Bullet(b2World *world, b2Vec2 position, float32 direction){
 
 Bullet::~Bullet(){
     body->GetWorld()->DestroyBody(body);
+    delete bullet_sprite;
 }
 b2Vec2 Bullet::getPosition() {
     return body->GetPosition();

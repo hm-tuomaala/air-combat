@@ -20,6 +20,9 @@ gameLoop::~gameLoop(){
     delete fighterWorld;
     delete enGround;
     delete menu;
+    delete options;
+    delete win;
+    delete lose;
 }
 
 void gameLoop::setup(){
@@ -248,7 +251,6 @@ void gameLoop::endScreen(){
         //loss
         renderLose = true;
     }
-    // täällä tulee seg fault jos hävitään!
     delete bullets;
     delete player;
     delete enPlanes;

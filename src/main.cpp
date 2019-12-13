@@ -12,8 +12,7 @@
 #include "gameLoop.hpp"
 
 int main(){
-    gameLoop *loop = new gameLoop();
-    loop->loop();
+    gameLoop loop;
     /*sf::RenderWindow window(sf::VideoMode(800, 600), "Air combat", sf::Style::Titlebar | sf::Style::Close);
     window.setFramerateLimit(60);
     sf::Event event;
