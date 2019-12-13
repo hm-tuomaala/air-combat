@@ -42,8 +42,8 @@ const std::list<sf::Sprite> enemyGround::getSprites() const{
     return sprites;
 }
 
-void enemyGround::shotDirection(float32 playerDirection, b2Vec2 playerPosition){
+void enemyGround::shotDirection(b2Vec2 playerPosition){
     for(auto enemy : groundUnit_){
-        enemy->shoot(projectiles_, playerDirection, playerPosition);
+        enemy->shoot(projectiles_, playerPosition);
     }
 }

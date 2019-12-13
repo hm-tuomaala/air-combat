@@ -16,7 +16,7 @@ Plane::Plane(b2World *world, int difficulty, sf::Texture& texture){
         ammo_ = 50;
     }
     else {
-        bodyDef.position.Set(300.0f, 10.0f);
+        bodyDef.position.Set(300.0f, 100.0f);
         ammo_ = 1000;
     }
     body_ = world->CreateBody(&bodyDef);

@@ -64,12 +64,22 @@ void groundUnit::turn(const int x){
     }
 }
 
-void groundUnit::shoot(Projectiles *projectile, float32 playerDirection, b2Vec2 playerPosition){
+void groundUnit::shoot(Projectiles *projectile, b2Vec2 playerPosition){
     float32 angle;
-    if(playerPosition.x-body_->GetPosition().x >= 0)
+    if(playerPosition.x-body_->GetPosition().x >= 0){
         angle = atan((playerPosition.y- body_->GetPosition().y) /(playerPosition.x - body_->GetPosition().x));
-    else
+        if (angle < 3.14/24){
+            angle = 3.14/24; 
+            delay = 0;
+        }
+    }
+    else{
         angle = 3.14 + atan((playerPosition.y- body_->GetPosition().y) /(playerPosition.x - body_->GetPosition().x));
+        if(angle > 3.14*23/24){
+            angle = 3.14*23/24;
+            delay = 0;
+        }
+    }
     if(delay >= 30){
         projectile->create(getPosition(), angle);
         delay = 0;

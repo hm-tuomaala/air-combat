@@ -16,7 +16,7 @@ public:
     void step();
     const int toRemove();
     const std::list<sf::Sprite> getSprites() const;
-    void shotDirection(float32 playerDirection, b2Vec2 playerPosition);
+    void shotDirection(b2Vec2 playerPosition);
 
 private:
     std::list<groundUnit*> groundUnit_;
