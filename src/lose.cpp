@@ -12,7 +12,7 @@ Lose::Lose(float width, float height){
     lost_.setFont(font_);
     lost_.setFillColor(sf::Color::Red);
     lost_.setString("YOU LOST");
-    lost_.setPosition(sf::Vector2f(width/4, height/2.5f));
+    lost_.setPosition(sf::Vector2f(width/4.8, height/2.5f));
     lost_.setCharacterSize(100);
 
     info_.setFont(font_);
