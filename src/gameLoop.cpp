@@ -201,11 +201,11 @@ void gameLoop::worldStep(){
         ending = 3;
     }
     enPlanes->planeControl(player->getPosition(), player->getDirection());
-    enGround->shotDirection(player->getDirection(), player->getPosition());
+    enGround->shotDirection(player->getPosition());
 }
 
 void gameLoop::draw(){
-    //view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y);
+    //view.setCenter(player->getSprite().getPosition().x, player->getSprite().getPosition().y+100);
     view.setCenter(player->getSprite().getPosition().x, 280);
     view.setSize(800, -600);
     window.setView(view);
