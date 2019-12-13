@@ -6,9 +6,11 @@
 #include "plane.hpp"
 
 class Player{
-// class to store and control player specific stats
+// class to store and control player specific stats and plane oblject
 public:
     Player(b2World *world, sf::Texture& texture);
+    Player(const Player&) = delete;
+    Player& operator=(const Player&) = delete;
     ~Player();
     void respawn();
     void planePitch(const int x);

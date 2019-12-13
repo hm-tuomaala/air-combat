@@ -10,6 +10,8 @@ class EnemyAir{
 /*Stores and controls enemy air units*/
 public:
     EnemyAir(b2World *world, Projectiles *projectiles);
+    EnemyAir(const EnemyAir&) = delete;
+    EnemyAir& operator=(const EnemyAir&) = delete;
     ~EnemyAir();
     void liftoff(sf::Texture& texture, const int difficulty);
     void planeControl(b2Vec2 pPos, float32 pDir);

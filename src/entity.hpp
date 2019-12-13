@@ -5,6 +5,6 @@
 class Entity{
 /*A parent class for all moving entities in the game for the sole purpose of handling collisions*/
 public:
-    virtual int getEntityType() = 0;
+    virtual int getEntityType() = 0; //unused for now
     virtual void startContact(bool ground){}
 };

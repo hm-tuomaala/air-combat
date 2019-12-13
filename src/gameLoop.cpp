@@ -26,9 +26,9 @@ gameLoop::~gameLoop(){
 }
 
 void gameLoop::setup(){
+    
     ending = 0;
     allSpawned = false;
-
     renderMenu = true;
     renderOptions = false;
 
@@ -58,10 +58,14 @@ void gameLoop::setup(){
     hpText.setFont(f);
     livesText.setFont(f);
     ammosText.setFont(f);
-
+/*
     hp = std::to_string(player->getHp());
     lives = std::to_string(player->getLives());
     ammos = std::to_string(player->getAmmo());
+*/
+    hp = std::to_string(' ');
+    lives = std::to_string(' ');
+    ammos = std::to_string(' ');
 
     hpText.setString("HP: " + hp);
     hpText.setPosition(view.getCenter().x - hudXPos, view.getCenter().y - hudYPos);

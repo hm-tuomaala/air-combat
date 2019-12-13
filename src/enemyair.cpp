@@ -18,7 +18,7 @@ void EnemyAir::liftoff(sf::Texture& texture, const int difficulty){
 void EnemyAir::step(){
     for (auto i : planes_){
         if (i->planeStep() <= 0){
-            planesToRemove_.push_back(i);
+            planesToRemove_.push_back(i); //adds dying planes to a buffer list to be deleted
         }
     }
 }
@@ -47,6 +47,7 @@ const std::list<sf::Sprite> EnemyAir::getSprites() const{
 }
 
 void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
+    //provides tracking of the player plane and applies pitching as needed
     for (auto plane : planes_){
         b2Vec2 sep =pPos - plane->getPosition();
         float32 dist = sep.Normalize();
@@ -77,6 +78,7 @@ void EnemyAir::planeControl(b2Vec2 pPos, float32 pDir){
                 plane->pitch(1);
             }
         }
+        //shoots and accelerates if player is in front of the plane
         if ((dir - sep).Length() < 1){
             if (dist > 100)
                 plane->accelerate();

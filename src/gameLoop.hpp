@@ -46,15 +46,15 @@ private:
 
     bool difficultySetup;
 
-    bool renderMenu;
-    bool renderOptions;
-    bool renderWin;
-    bool renderLose;
+    bool renderMenu = true;
+    bool renderOptions = false;
+    bool renderWin = false;
+    bool renderLose = false;
     std::string path;
     sf::Font f;
 
-    int hudXPos;
-    int hudYPos;
+    int hudXPos = 370;
+    int hudYPos = -280;
 
 
     std::string hp;
@@ -70,9 +70,9 @@ private:
     sf::Sprite spriteBackground;
     
 
-    int ending;
-    int enemyAirToSpawn;
-    int enemyGroundToSpawn;
-    int spawnTimer;
-    bool allSpawned;
+    int ending = 0;
+    int enemyAirToSpawn = 0;
+    int enemyGroundToSpawn = 0;
+    int spawnTimer = 120;
+    bool allSpawned = false;
 };

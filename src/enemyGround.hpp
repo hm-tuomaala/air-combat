@@ -9,13 +9,14 @@ class enemyGround{
 /*Store and control enemy ground units*/
 public:
     enemyGround(b2World *world, Projectiles *projectile, sf::Texture& texture);
+    enemyGround(const enemyGround&) = delete;
+    enemyGround& operator=(const enemyGround&) = delete;
     ~enemyGround();
     void create(sf::Texture& texture);
     void step();
     const int toRemove();
     const std::list<sf::Sprite> getSprites() const;
     void shotDirection(float32 playerDirection, b2Vec2 playerPosition);
-
 
 private:
     std::list<groundUnit*> groundUnit_;
