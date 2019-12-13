@@ -16,14 +16,14 @@ public:
     int groundUnitStep();
     sf::Sprite &getSprite();
     void startContact(bool ground);
-    void shoot(Projectiles *projectile, float32 playerDirection, b2Vec2 playerPosition);
+    void shoot(Projectiles *projectile, b2Vec2 playerPosition);
     void turn(const int x);
     int getEntityType(){return 2;}
 
     
 private:
     b2Body *body_;
-    sf::Sprite *groundUnitSprite;
+    sf::Sprite groundUnitSprite;
     int shotInterval;
     int delay;
     int health;

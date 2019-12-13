@@ -24,9 +24,9 @@ groundUnit::groundUnit(b2World *world, sf::Texture& texture){
 
 
     //creation of sprite
-    groundUnitSprite = new sf::Sprite(texture);
-    groundUnitSprite->setOrigin(10.0f, 5.0f);
-    groundUnitSprite->setScale(2.0f/15.0f, 2.0f/15.0f);
+    groundUnitSprite = sf::Sprite(texture);
+    groundUnitSprite.setOrigin(10.0f, 5.0f);
+    groundUnitSprite.setScale(2.0f/15.0f, 2.0f/15.0f);
 
 }
 
@@ -46,13 +46,13 @@ int groundUnit::groundUnitStep(){
     float32 angle = body_->GetAngle();
     delay++;
     //update sprite position
-    groundUnitSprite->setPosition(position.x, position.y);
-    groundUnitSprite->setRotation(angle * 180.f / 3.14f);
+    groundUnitSprite.setPosition(position.x, position.y);
+    groundUnitSprite.setRotation(angle * 180.f / 3.14f);
     return health;
 }
 
 sf::Sprite &groundUnit::getSprite(){
-    return *groundUnitSprite;
+    return groundUnitSprite;
 }
 
 void groundUnit::turn(const int x){
@@ -64,12 +64,20 @@ void groundUnit::turn(const int x){
     }
 }
 
-void groundUnit::shoot(Projectiles *projectile, float32 playerDirection, b2Vec2 playerPosition){
+void groundUnit::shoot(Projectiles *projectile, b2Vec2 playerPosition){
     float32 angle;
-    if(playerPosition.x-body_->GetPosition().x >= 0)
+    if(playerPosition.x-body_->GetPosition().x >= 0){
         angle = atan((playerPosition.y- body_->GetPosition().y) /(playerPosition.x - body_->GetPosition().x));
-    else
+        if (angle < 3.14/8){
+            angle = 3.14/8; 
+        }
+    }
+    else{
         angle = 3.14 + atan((playerPosition.y- body_->GetPosition().y) /(playerPosition.x - body_->GetPosition().x));
+        if(angle > 3.14*7/8){
+            angle = 3.14*7/8;
+        }
+    }
     if(delay >= 30){
         projectile->create(getPosition(), angle);
         delay = 0;

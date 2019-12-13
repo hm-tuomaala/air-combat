@@ -7,7 +7,7 @@ Player::Player(b2World *world, sf::Texture& texture)
 }
 
 Player::~Player(){
-
+    delete plane_;
 }
 
 void Player::step(){

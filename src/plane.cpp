@@ -35,9 +35,9 @@ Plane::Plane(b2World *world, int difficulty, sf::Texture& texture){
     //create plane sprite
 
     //plane_texture.create(20, 10);
-    sprite_ = new sf::Sprite(texture);
+    sprite_ = sf::Sprite(texture);
     //sprite_->setScale(0.5f, 0.5f);
-    sprite_->setOrigin(10.f, 5.f);
+    sprite_.setOrigin(10.f, 5.f);
     //sprite_->setColor(sf::Color::Magenta);
 }
 
@@ -64,13 +64,13 @@ const int Plane::planeStep(){
         body_->ApplyForceToCenter(b2Vec2(0, -100), true);
 
     //update sprite position
-    sprite_->setPosition(position.x, position.y);
-    sprite_->setRotation(angle * 180.f / 3.14f);
+    sprite_.setPosition(position.x, position.y);
+    sprite_.setRotation(angle * 180.f / 3.14f);
     if (b2Rot(body_->GetAngle()).GetXAxis().x > 0){
-        sprite_->setScale(1, -1);
+        sprite_.setScale(1, -1);
     }
     else{ 
-        sprite_->setScale(1, 1);
+        sprite_.setScale(1, 1);
     }
     //returns the health of the plane
     return health_;
@@ -85,7 +85,7 @@ const float32 Plane::getDirection() const{
 }
 
 const sf::Sprite &Plane::getSprite() const{
-    return *sprite_;
+    return sprite_;
 }
 
 const int Plane::getHealth() const{

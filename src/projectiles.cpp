@@ -15,13 +15,13 @@ void Projectiles::create(b2Vec2 position, float32 direction ){
 }
 
 void Projectiles::remove(){
-    for(auto i : toRemove_){
-        Bullet* deadbullet = i;
+    for(auto i = toRemove_.begin() ; i != toRemove_.end(); i++){
+        Bullet* deadbullet = *i;
         delete deadbullet;
 
         std::list<Bullet*>::iterator it = std::find(bullets.begin(), bullets.end(), deadbullet);
         if(it != bullets.end()){
-            bullets.remove(i);
+            bullets.erase(it);
         }
     }
     toRemove_.clear();

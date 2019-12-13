@@ -22,6 +22,10 @@ Win::Win(float width, float height){
     info_.setCharacterSize(30);
 }
 
+Win::~Win(){
+    
+}
+
 void Win::Draw(sf::RenderWindow& window){
     window.draw(victory_);
     window.draw(info_);
