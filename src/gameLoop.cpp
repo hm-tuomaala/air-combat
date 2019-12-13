@@ -34,9 +34,7 @@ void gameLoop::setup(){
 
     planeTexture.loadFromFile(path + std::string("/Images/plane.png"));
     enemyTexture.loadFromFile(path + std::string("/Images/AirCombatEnemy.png"));
-    backgroundTexture.loadFromFile(path + std::string("/Images/Background.png")); 
-    spriteBackground.setTexture(backgroundTexture);
-    spriteBackground.setPosition(-480.0f,10.0f);
+
     
 
     fighterWorld = new World();
@@ -262,6 +260,15 @@ void gameLoop::difficultySpawns(){
     enemyAirToSpawn = diff + 3;
     enemyGroundToSpawn = (diff + 2) * 2;
     difficultySetup = true;
+    if(diff == 0){
+        backgroundTexture.loadFromFile(path + std::string("/Images/Background1.png")); 
+    } else if(diff == 1){
+        backgroundTexture.loadFromFile(path + std::string("/Images/Background2.png"));
+    } else{
+        backgroundTexture.loadFromFile(path + std::string("/Images/Background3.png"));
+    }
+    spriteBackground.setTexture(backgroundTexture);
+    spriteBackground.setPosition(-480.0f,10.0f);
 }
 
 void gameLoop::loop(){
